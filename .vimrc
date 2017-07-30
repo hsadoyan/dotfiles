@@ -108,7 +108,7 @@ filetype plugin indent on    " required
 " execute pathogen#infect() 
 
 "let g:solarized_termcolors=256
-colorscheme solarized " Colorscheme that I use. I like it, but requires it to be installed. Can be replaced with colorscheme of choice
+colorscheme wombat 
 
 
 "set hidden
@@ -120,18 +120,15 @@ colorscheme solarized " Colorscheme that I use. I like it, but requires it to be
 nnoremap ;; :s/\v(.)$/\=submatch(1)==';' ? '' : submatch(1).';'<CR> :noh <CR>
 
 map Y y$
-" The Silver Searcher
-if executable('ag')
-  " Use ag over grep
-  set grepprg=ag\ --nogroup\ --nocolor
-
-  " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
-  let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
-
-  " ag is fast enough that CtrlP doesn't need to cache
-  let g:ctrlp_use_caching = 0
+if executable('rg')
+  set grepprg=rg\ --vimgrep
 endif
-"
+
+augroup myvimrc
+    autocmd!
+    autocmd QuickFixCmdPost [^l]* cwindow
+    autocmd QuickFixCmdPost l*    lwindow
+augroup END"
 " Vim Autocompletion Configuration
 
 let g:ycm_global_ycm_extra_conf = '~/.ycm_global_ycm_extra_conf'
