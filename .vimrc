@@ -13,7 +13,8 @@ let mapleader = ","
 
 set nocompatible			
 set background=dark
-set textwidth=80
+set termguicolors
+set textwidth=120
 
 
 set linebreak   " turn on word wrapping
@@ -97,7 +98,10 @@ Plugin 'Valloric/YouCompleteMe'
 Plugin 'rust-lang/rust.vim'
 " Plugin 'scrooloose/nerdtree'
 Plugin 'vim-syntastic/syntastic'
+Plugin 'tyrannicaltoucan/vim-quantum'
 Plugin 'hzchirs/vim-material'
+Plugin 'zcodes/vim-colors-basic'
+ 10 " Vim Autocompletion Configuration
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
