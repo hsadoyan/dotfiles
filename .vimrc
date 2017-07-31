@@ -97,6 +97,7 @@ Plugin 'Valloric/YouCompleteMe'
 Plugin 'rust-lang/rust.vim'
 " Plugin 'scrooloose/nerdtree'
 Plugin 'vim-syntastic/syntastic'
+Plugin 'hzchirs/vim-material'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -107,8 +108,7 @@ filetype plugin indent on    " required
 " but you should do that anyway. 
 " execute pathogen#infect() 
 
-"let g:solarized_termcolors=256
-colorscheme wombat 
+colorscheme vim-material
 
 
 "set hidden
