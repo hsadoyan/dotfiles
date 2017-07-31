@@ -88,6 +88,7 @@ set foldmethod=indent   "tells vim where to fold. Syntax is also an option, as w
 
 """"""""""""""""""""""""" MAPPINGS """""""""""""""""""""""""""""
 
+filetype off
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 
@@ -97,11 +98,12 @@ Plugin 'tpope/vim-rails'
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'rust-lang/rust.vim'
 " Plugin 'scrooloose/nerdtree'
+Plugin 'yalesov/vim-emblem'
 Plugin 'vim-syntastic/syntastic'
 Plugin 'tyrannicaltoucan/vim-quantum'
 Plugin 'hzchirs/vim-material'
 Plugin 'zcodes/vim-colors-basic'
- 10 " Vim Autocompletion Configuration
+Plugin 'kchmck/vim-coffee-script'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -155,7 +157,9 @@ nnoremap <leader>V :vert sfind <C-R>=expand('%:h').'/*'<CR>
 
 nnoremap K :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
 
+set path+=~/work/Minimoserver/frontend/app/
 set path+=~/work/Minimoserver/app/services/slack_service_states/
 set path+=~/work/Minimoserver/spec/services
+set path+=~/work/Minimoserver/config/
 
 autocmd FileType ruby compiler ruby
