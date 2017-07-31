@@ -85,6 +85,7 @@ set foldenable  " enable folding. i.e. you can minimize your functions
 set foldlevelstart=10 " open up to 5 folds when opening file.
 set foldmethod=indent   "tells vim where to fold. Syntax is also an option, as well as some others.
 
+set rtp+=~/.fzf
 
 """"""""""""""""""""""""" MAPPINGS """""""""""""""""""""""""""""
 
@@ -104,6 +105,7 @@ Plugin 'tyrannicaltoucan/vim-quantum'
 Plugin 'hzchirs/vim-material'
 Plugin 'zcodes/vim-colors-basic'
 Plugin 'kchmck/vim-coffee-script'
+Plugin 'junegunn/fzf.vim'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -151,8 +153,8 @@ nnoremap <leader>v :vert sfind<space>
 nnoremap <leader>g :grep<space>
 
 
-nnoremap <leader>F :find <C-R>=expand('%:h').'/*'<CR>
-nnoremap <leader>S :sfind <C-R>=expand('%:h').'/*'<CR>
+nnoremap <leader>F :Files
+"nnoremap <leader>S :sp<CR> :Files
 nnoremap <leader>V :vert sfind <C-R>=expand('%:h').'/*'<CR>
 
 nnoremap K :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
@@ -161,5 +163,21 @@ set path+=~/work/Minimoserver/frontend/app/
 set path+=~/work/Minimoserver/app/services/slack_service_states/
 set path+=~/work/Minimoserver/spec/services
 set path+=~/work/Minimoserver/config/
+set path+=$PWD/**
 
 autocmd FileType ruby compiler ruby
+
+let g:fzf_nvim_statusline = 1
+
+
+" --column: Show column number
+" --line-number: Show line number
+" --no-heading: Do not show file headings in results
+" --fixed-strings: Search term as a literal string
+" --ignore-case: Case insensitive search
+" --no-ignore: Do not respect .gitignore, etc...
+" --hidden: Search hidden files and folders
+" --follow: Follow symlinks
+" --glob: Additional conditions for search (in this case ignore everything in the .git/ folder)
+" --color: Search color options
+command! -bang -nargs=* Find call fzf#vim#grep('rg --column --line-number --no-heading --fixed-strings --ignore-case --follow --glob "!.git/*" --color "always" '.shellescape(<q-args>), 1, <bang>0)
