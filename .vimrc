@@ -96,6 +96,8 @@ call vundle#begin()
 Plugin 'gmarik/Vundle.vim'
 
 Plugin 'tpope/vim-rails'
+Plugin 'tpope/vim-fugitive'
+Plugin 'tpope/vim-surround'
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'rust-lang/rust.vim'
 " Plugin 'scrooloose/nerdtree'
@@ -150,12 +152,12 @@ nnoremap <leader>w :w<CR>
 nnoremap <leader>f :find<space>
 nnoremap <leader>s :sfind<space>
 nnoremap <leader>v :vert sfind<space>
-nnoremap <leader>g :grep<space>
+nnoremap <leader>g :grep!<space>
 
 
-nnoremap <leader>F :Files
-"nnoremap <leader>S :sp<CR> :Files
-nnoremap <leader>V :vert sfind <C-R>=expand('%:h').'/*'<CR>
+nnoremap <leader>F :Files<CR>
+nnoremap <leader>S :sp<CR>:Files<CR>
+nnoremap <leader>V :vs<CR>:Files<CR>
 
 nnoremap K :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
 
