@@ -1,11 +1,5 @@
 " Use <F11> to toggle between 'paste' and 'nopaste'
-" When in 'paste' mode, you can paste from the regular clipborad with "+p
-" Yes, all three characters are needed to paste. Working on a way to make this
-" faster.
-" Remember to turn paste  off after. Leaving paste open permanently can fuck shit
-" up
 set pastetoggle=<F11>
- 
 
 let mapleader = ","
  
@@ -15,7 +9,6 @@ set nocompatible
 set background=dark
 set termguicolors
 set textwidth=120
-
 
 set linebreak   " turn on word wrapping
 
@@ -89,34 +82,26 @@ set rtp+=~/.fzf
 
 """"""""""""""""""""""""" MAPPINGS """""""""""""""""""""""""""""
 
-filetype off
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
+call plug#begin('~/.vim/bundle')
 
-Plugin 'gmarik/Vundle.vim'
-
-Plugin 'tpope/vim-rails'
-Plugin 'tpope/vim-fugitive'
-Plugin 'tpope/vim-surround'
-Plugin 'Valloric/YouCompleteMe'
-Plugin 'rust-lang/rust.vim'
-" Plugin 'scrooloose/nerdtree'
-Plugin 'yalesov/vim-emblem'
-Plugin 'vim-syntastic/syntastic'
-Plugin 'tyrannicaltoucan/vim-quantum'
-Plugin 'hzchirs/vim-material'
-Plugin 'zcodes/vim-colors-basic'
-Plugin 'kchmck/vim-coffee-script'
-Plugin 'junegunn/fzf.vim'
+Plug 'tpope/vim-rails'
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-surround'
+Plug 'Valloric/YouCompleteMe', { 'do': './install.py'}
+Plug 'rust-lang/rust.vim'
+Plug 'yalesov/vim-emblem'
+Plug 'vim-syntastic/syntastic'
+Plug 'tyrannicaltoucan/vim-quantum'
+Plug 'hzchirs/vim-material'
+Plug 'zcodes/vim-colors-basic'
+Plug 'kchmck/vim-coffee-script'
+Plug 'elixir-lang/vim-elixir'
+Plug 'junegunn/fzf.vim'
 
 " All of your Plugins must be added before the following line
-call vundle#end()            " required
+call plug#end()            " required
 
-filetype plugin indent on    " required
-
-" Pathogen is a great way to intall vim plugins. Requires it to be installed,
-" but you should do that anyway. 
-" execute pathogen#infect() 
+filetype plugin indent on    
 
 colorscheme vim-material
 
@@ -143,6 +128,7 @@ augroup END"
 
 let g:ycm_global_ycm_extra_conf = '~/.ycm_global_ycm_extra_conf'
 let g:ycm_rust_src_path = '/home/ftlc/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/src'
+
 
 
 nnoremap <leader>b :ls<CR>:b<space>
