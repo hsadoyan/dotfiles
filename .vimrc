@@ -78,7 +78,7 @@ set foldenable  " enable folding. i.e. you can minimize your functions
 set foldlevelstart=10 " open up to 5 folds when opening file.
 set foldmethod=indent   "tells vim where to fold. Syntax is also an option, as well as some others.
 
-set rtp+=~/.fzf
+set rtp+=/usr/bin/fzf
 
 """"""""""""""""""""""""" MAPPINGS """""""""""""""""""""""""""""
 
@@ -96,7 +96,9 @@ Plug 'hzchirs/vim-material'
 Plug 'zcodes/vim-colors-basic'
 Plug 'kchmck/vim-coffee-script'
 Plug 'elixir-lang/vim-elixir'
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
+Plug 'racer-rust/vim-racer'
 
 " All of your Plugins must be added before the following line
 call plug#end()            " required
