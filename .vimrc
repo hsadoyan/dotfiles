@@ -46,6 +46,8 @@ set autoindent " when opening a new line, keep the same indent as the previous l
 set nostartofline   " stop curser from always going to start of line when scrolling down
 set ruler   " Display cursor position in status line. Better readability
 
+
+
 set laststatus=2 " always display status line, even if there's only 1 window. Can be changed if you want.
 
 set confirm " ask if you wish to save changes to file instead of failing command
@@ -104,6 +106,7 @@ call plug#end()            " required
 filetype plugin indent on    
 
 colorscheme vim-material
+:highlight Search guibg=Grey40
 
 
 "set hidden
@@ -111,7 +114,6 @@ colorscheme vim-material
 "let $RUST_SRC_PATH="~/.multirust/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/src"
 ""let g:racer_experimental_completer = 1
 
-" set t_Co=256
 nnoremap ;; :s/\v(.)$/\=submatch(1)==';' ? '' : submatch(1).';'<CR> :noh <CR>
 
 map Y y$
@@ -147,15 +149,13 @@ nnoremap <leader>V :vs<CR>:Files<CR>
 
 nnoremap K :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
 
-set path+=~/work/Minimoserver/frontend/app/
 set path+=~/work/Minimoserver/app/services/slack_service_states/
 set path+=~/work/Minimoserver/spec/services
 set path+=~/work/Minimoserver/config/
-set path+=$PWD/**
+
+
 
 autocmd FileType ruby compiler ruby
-
-let g:fzf_nvim_statusline = 1
 
 
 " --column: Show column number
