@@ -101,6 +101,8 @@ Plug 'elixir-lang/vim-elixir'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'racer-rust/vim-racer'
+Plug 'xolox/vim-misc'
+Plug 'xolox/vim-easytags'
 
 " All of your Plugins must be added before the following line
 call plug#end()            " required
@@ -110,6 +112,7 @@ filetype plugin indent on
 colorscheme vim-material
 :highlight Search guibg=Grey40
 
+let g:easytags_async = 1
 
 "set hidden
 ""let g:racer_cmd = "/usr/local/bin/racer"
@@ -155,6 +158,9 @@ set path+=~/work/Minimoserver/app/services/slack_service_states/
 set path+=~/work/Minimoserver/spec/services
 set path+=~/work/Minimoserver/config/
 
+nnoremap <leader>dt :diffget //2<CR>
+nnoremap <leader>dm :diffget //3<CR>
+nnoremap <leader>du :diffupdate<CR>
 
 
 autocmd FileType ruby compiler ruby
