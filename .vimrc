@@ -147,6 +147,12 @@ nnoremap <leader>F :Files<CR>
 nnoremap <leader>S :sp<CR>:Files<CR>
 nnoremap <leader>V :vs<CR>:Files<CR>
 
+nnoremap <leader>t :ta<space>
+nnoremap <leader>tl :tselect<CR>
+nnoremap <leader>tn :tn<CR>
+nnoremap <leader>tp :tp<CR>
+nnoremap <leader>p :pop<CR>
+
 nnoremap K :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
 
 set path+=~/work/Minimoserver/frontend/app/
@@ -159,6 +165,8 @@ autocmd FileType ruby compiler ruby
 
 let g:fzf_nvim_statusline = 1
 
+au FileType ruby setl sw=2 sts=2 et
+au FileType c setl sw=4 sts=4 et
 
 " --column: Show column number
 " --line-number: Show line number
