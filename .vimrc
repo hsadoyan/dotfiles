@@ -46,6 +46,8 @@ set autoindent " when opening a new line, keep the same indent as the previous l
 set nostartofline   " stop curser from always going to start of line when scrolling down
 set ruler   " Display cursor position in status line. Better readability
 
+
+
 set laststatus=2 " always display status line, even if there's only 1 window. Can be changed if you want.
 
 set confirm " ask if you wish to save changes to file instead of failing command
@@ -99,6 +101,8 @@ Plug 'elixir-lang/vim-elixir'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'racer-rust/vim-racer'
+Plug 'xolox/vim-misc'
+Plug 'xolox/vim-easytags'
 
 " All of your Plugins must be added before the following line
 call plug#end()            " required
@@ -106,14 +110,15 @@ call plug#end()            " required
 filetype plugin indent on    
 
 colorscheme vim-material
+:highlight Search guibg=Grey40
 
+let g:easytags_async = 1
 
 "set hidden
 ""let g:racer_cmd = "/usr/local/bin/racer"
 "let $RUST_SRC_PATH="~/.multirust/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/src"
 ""let g:racer_experimental_completer = 1
 
-" set t_Co=256
 nnoremap ;; :s/\v(.)$/\=submatch(1)==';' ? '' : submatch(1).';'<CR> :noh <CR>
 
 map Y y$
@@ -155,15 +160,16 @@ nnoremap <leader>p :pop<CR>
 
 nnoremap K :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
 
-set path+=~/work/Minimoserver/frontend/app/
 set path+=~/work/Minimoserver/app/services/slack_service_states/
 set path+=~/work/Minimoserver/spec/services
 set path+=~/work/Minimoserver/config/
-set path+=$PWD/**
+
+nnoremap <leader>dt :diffget //2<CR>
+nnoremap <leader>dm :diffget //3<CR>
+nnoremap <leader>du :diffupdate<CR>
+
 
 autocmd FileType ruby compiler ruby
-
-let g:fzf_nvim_statusline = 1
 
 au FileType ruby setl sw=2 sts=2 et
 au FileType c setl sw=4 sts=4 et
