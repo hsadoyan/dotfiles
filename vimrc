@@ -24,6 +24,7 @@ set showcmd " show command in bottom bar
 filetype indent plugin on " pretty self explanatory. Sets filetype-specific indents.
 syntax on " enable syntax highlighting
 set wildmenu " enable command line completion
+set wildignore+=*/node_modules/*,*/vendor/*
 
 set lazyredraw  " redraw only when you have to. Can make things faster.
 
@@ -32,8 +33,6 @@ set showmatch   " fucking great one. Highlights matching parenthases.
 set incsearch   " search as characters are entered
 set hlsearch    " highlight matches
 
-"map Ctrl-L in command mode to turn off highlighting after search.
-nnoremap <C-L> :nohl<CR><C-L> 
 
 set ignorecase  " case insensitive search
 set smartcase
@@ -86,30 +85,64 @@ set rtp+=/usr/bin/fzf
 
 call plug#begin('~/.vim/bundle')
 
+" Movement
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
+Plug 'christoomey/vim-tmux-navigator'
+Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
+Plug 'scrooloose/nerdtree'
+Plug 'tpope/vim-unimpaired'
+Plug 'yangmillstheory/vim-snipe'
+
+"Language Specific
 Plug 'tpope/vim-rails'
-Plug 'tpope/vim-fugitive'
-Plug 'tpope/vim-surround'
-Plug 'Valloric/YouCompleteMe', { 'do': './install.py'}
+Plug 'leafgarland/typescript-vim'
+Plug 'Quramy/tsuquyomi'
 Plug 'rust-lang/rust.vim'
+Plug 'racer-rust/vim-racer'
 Plug 'yalesov/vim-emblem'
-Plug 'vim-syntastic/syntastic'
+Plug 'kchmck/vim-coffee-script'
+Plug 'elixir-lang/vim-elixir'
+Plug 'Vimjas/vim-python-pep8-indent'
+
+
+"Autocomplete/linting
+Plug 'Valloric/YouCompleteMe', { 'do': './install.py'}
+Plug 'tpope/vim-surround'
+Plug 'w0rp/ale'
+Plug 'xolox/vim-misc'
+Plug 'xolox/vim-easytags'
+Plug 'jiangmiao/auto-pairs'
+Plug 'alvan/vim-closetag'
+
+"Appearance
 Plug 'tyrannicaltoucan/vim-quantum'
 Plug 'hzchirs/vim-material'
 Plug 'zcodes/vim-colors-basic'
-Plug 'kchmck/vim-coffee-script'
-Plug 'elixir-lang/vim-elixir'
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-Plug 'junegunn/fzf.vim'
-Plug 'racer-rust/vim-racer'
-Plug 'xolox/vim-misc'
-Plug 'xolox/vim-easytags'
+Plug 'ryanoasis/vim-devicons'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'romainl/flattened'
+Plug 'KeitaNakamura/neodark.vim'
+Plug 'rakr/vim-one'
+Plug 'lifepillar/vim-solarized8'
+Plug 'gertjanreynaert/cobalt2-vim-theme'
+Plug 'kristijanhusak/vim-hybrid-material'
+Plug 'mkarmona/colorsbox'
+
+
+"Misc
+Plug 'tpope/vim-fugitive'
+Plug 'scrooloose/nerdcommenter'
+Plug 'tpope/vim-dispatch'
 
 " All of your Plugins must be added before the following line
 call plug#end()            " required
 
 filetype plugin indent on    
 
-colorscheme vim-material
+colorscheme flattown
+
 :highlight Search guibg=Grey40
 
 let g:easytags_async = 1
@@ -120,6 +153,7 @@ let g:easytags_async = 1
 ""let g:racer_experimental_completer = 1
 
 nnoremap ;; :s/\v(.)$/\=submatch(1)==';' ? '' : submatch(1).';'<CR> :noh <CR>
+nnoremap ,, :s/\v(.)$/\=submatch(1)==',' ? '' : submatch(1).','<CR> :noh <CR>
 
 map Y y$
 if executable('rg')
@@ -137,20 +171,20 @@ let g:ycm_global_ycm_extra_conf = '~/.ycm_global_ycm_extra_conf'
 let g:ycm_rust_src_path = '/home/ftlc/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/src'
 
 
-
 nnoremap <leader>b :ls<CR>:b<space>
+nnoremap <leader>' :s/"/'/g<CR>
+nnoremap <leader>" :s/'/"/g<CR>
+nnoremap <leader>l :nohl<CR>
 
 nnoremap <leader>w :w<CR>
 
-nnoremap <leader>f :find<space>
-nnoremap <leader>s :sfind<space>
-nnoremap <leader>v :vert sfind<space>
+" nnoremap <leader>f :find<space> 
+" nnoremap <leader>s :sfind<space>
+" nnoremap <leader>v :vert sfind<space>
 nnoremap <leader>g :grep!<space>
 
 
-nnoremap <leader>F :Files<CR>
-nnoremap <leader>S :sp<CR>:Files<CR>
-nnoremap <leader>V :vs<CR>:Files<CR>
+nnoremap <leader>f :Files<CR>
 
 nnoremap <leader>t :ta<space>
 nnoremap <leader>tl :tselect<CR>
@@ -160,14 +194,28 @@ nnoremap <leader>p :pop<CR>
 
 nnoremap K :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
 
-set path+=~/work/Minimoserver/app/services/slack_service_states/
-set path+=~/work/Minimoserver/spec/services
-set path+=~/work/Minimoserver/config/
+set path+=*/**
 
 nnoremap <leader>dt :diffget //2<CR>
 nnoremap <leader>dm :diffget //3<CR>
 nnoremap <leader>du :diffupdate<CR>
 
+" Vim snipe mappings. Let's see how this works
+"Character
+map <leader><leader>F <Plug>(snipe-F)
+map <leader><leader>f <Plug>(snipe-f)
+map <leader><leader>T <Plug>(snipe-T)
+map <leader><leader>t <Plug>(snipe-t)
+
+" Word
+map <leader><leader>w <Plug>(snipe-w)
+map <leader><leader>W <Plug>(snipe-W)
+map <leader><leader>e <Plug>(snipe-e)
+map <leader><leader>E <Plug>(snipe-E)
+map <leader><leader>b <Plug>(snipe-b)
+map <leader><leader>B <Plug>(snipe-B)
+map <leader><leader>ge <Plug>(snipe-ge)
+map <leader><leader>gE <Plug>(snipe-gE)
 
 autocmd FileType ruby compiler ruby
 
@@ -185,3 +233,12 @@ au FileType c setl sw=4 sts=4 et
 " --glob: Additional conditions for search (in this case ignore everything in the .git/ folder)
 " --color: Search color options
 command! -bang -nargs=* Find call fzf#vim#grep('rg --column --line-number --no-heading --fixed-strings --ignore-case --follow --glob "!.git/*" --color "always" '.shellescape(<q-args>), 1, <bang>0)
+
+map <C-n> :NERDTreeToggle<CR>
+let g:DevIconsEnableFolderPatternMatching = 1
+let g:WebDevIconsUnicodeDecorateFolderNodes = 1
+
+let g:NERDSpaceDelims = 1
+
+
+set diffopt+=vertical
