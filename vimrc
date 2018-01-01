@@ -116,6 +116,7 @@ Plug 'jiangmiao/auto-pairs'
 Plug 'alvan/vim-closetag'
 
 "Appearance
+Plug 'flazz/vim-colorschemes'
 Plug 'tyrannicaltoucan/vim-quantum'
 Plug 'hzchirs/vim-material'
 Plug 'zcodes/vim-colors-basic'
