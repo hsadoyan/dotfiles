@@ -81,6 +81,7 @@ export EDITOR='nvim'
 #
 # 
 source ~/dotfiles/aliases
+source ~/.aliases
 
 force_color_prompt=yes
 source /usr/share/fzf/key-bindings.zsh
@@ -110,5 +111,6 @@ BASE16_SHELL="$HOME/.config/base16-shell/base16-material.dark.sh"
 [[ -s $BASE16_SHELL ]] && source $BASE16_SHELL
 
 export PATH="$HOME/.yarn/bin:$PATH"
+export PATH="$PATH:/home/harry/.gem/ruby/2.4.0/bin"
 
 

@@ -7,7 +7,7 @@ allow_bold = true
 dynamic_title = true
 urgent_on_bell = true
 clickable_url = true
-font = DejaVuSansMonoNerdFont 16
+font = DejaVuSansMonoNerdFont 14
 scrollback_lines = 10000
 search_wrap = true
 #icon_name = terminal
@@ -74,7 +74,7 @@ color15 = #fdf6e3
 
 
 [hints]
-font = DejaVuSansMonoNerdFont 12
+font = DejaVuSansMonoNerdFont 14
 #foreground = #dcdccc
 #background = #3f3f3f
 #active_foreground = #e68080

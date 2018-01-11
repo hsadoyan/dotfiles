@@ -104,6 +104,10 @@ Plug 'yalesov/vim-emblem'
 Plug 'kchmck/vim-coffee-script'
 Plug 'elixir-lang/vim-elixir'
 Plug 'Vimjas/vim-python-pep8-indent'
+Plug 'wlangstroth/vim-racket'
+Plug 'kien/rainbow_parentheses.vim'
+Plug 'jpalardy/vim-slime'
+Plug 'sheerun/vim-polyglot'
 
 
 "Autocomplete/linting
@@ -243,3 +247,14 @@ let g:NERDSpaceDelims = 1
 
 
 set diffopt+=vertical
+
+if has("autocmd")
+  au BufReadPost *.rkt,*.rktl set filetype=racket
+  au filetype racket set lisp
+  au filetype racket set autoindent
+endif
+
+
+let g:slime_target = "tmux"
+let g:slime_default_config = {"socket_name": split($TMUX, ",")[0], "target_pane": ":.1"}
+
