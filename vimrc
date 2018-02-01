@@ -93,6 +93,8 @@ Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 Plug 'scrooloose/nerdtree'
 Plug 'tpope/vim-unimpaired'
 Plug 'yangmillstheory/vim-snipe'
+Plug 'xolox/vim-misc'
+Plug 'xolox/vim-easytags'
 
 "Language Specific
 Plug 'tpope/vim-rails'
@@ -114,8 +116,6 @@ Plug 'sheerun/vim-polyglot'
 Plug 'Valloric/YouCompleteMe', { 'do': './install.py'}
 Plug 'tpope/vim-surround'
 Plug 'w0rp/ale'
-Plug 'xolox/vim-misc'
-Plug 'xolox/vim-easytags'
 Plug 'jiangmiao/auto-pairs'
 Plug 'alvan/vim-closetag'
 
@@ -255,6 +255,14 @@ if has("autocmd")
 endif
 
 
-let g:slime_target = "tmux"
-let g:slime_default_config = {"socket_name": split($TMUX, ",")[0], "target_pane": ":.1"}
+if exists('$TMUX') 
 
+  let g:slime_target = "tmux"
+  let g:slime_default_config = {"socket_name": split($TMUX, ",")[0], "target_pane": ":.1"}
+endif
+
+
+au VimEnter * RainbowParenthesesToggle
+au Syntax * RainbowParenthesesLoadRound
+au Syntax * RainbowParenthesesLoadSquare
+au Syntax * RainbowParenthesesLoadBraces
