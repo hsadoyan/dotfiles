@@ -77,7 +77,7 @@ endif
 
 set foldenable  " enable folding. i.e. you can minimize your functions
 set foldlevelstart=10 " open up to 5 folds when opening file.
-set foldmethod=indent   "tells vim where to fold. Syntax is also an option, as well as some others.
+set foldmethod=syntax   "tells vim where to fold. Syntax is also an option, as well as some others.
 
 set rtp+=/usr/bin/fzf
 
@@ -143,6 +143,7 @@ Plug 'tpope/vim-dispatch'
 
 " All of your Plugins must be added before the following line
 call plug#end()            " required
+
 
 filetype plugin indent on    
 
@@ -266,3 +267,14 @@ au VimEnter * RainbowParenthesesToggle
 au Syntax * RainbowParenthesesLoadRound
 au Syntax * RainbowParenthesesLoadSquare
 au Syntax * RainbowParenthesesLoadBraces
+
+
+let g:ale_completion_enabled = 1
+let g:airline#extensions#ale#enabled = 1
+
+
+
+let g:ycm_autoclose_preview_window_after_completion=1
+map <leader>[  :YcmCompleter GoToDefinitionElseDeclaration<CR>
+
+
