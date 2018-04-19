@@ -95,6 +95,9 @@ Plug 'tpope/vim-unimpaired'
 Plug 'yangmillstheory/vim-snipe'
 Plug 'xolox/vim-misc'
 Plug 'xolox/vim-easytags'
+Plug 'tpope/vim-projectionist'
+Plug 'SirVer/ultisnips'
+Plug 'honza/vim-snippets'
 
 "Language Specific
 Plug 'tpope/vim-rails'
@@ -105,12 +108,14 @@ Plug 'racer-rust/vim-racer'
 Plug 'yalesov/vim-emblem'
 Plug 'kchmck/vim-coffee-script'
 Plug 'elixir-lang/vim-elixir'
+Plug 'tpope/vim-endwise'
+Plug 'avdgaag/vim-phoenix'
 Plug 'Vimjas/vim-python-pep8-indent'
 Plug 'wlangstroth/vim-racket'
 Plug 'kien/rainbow_parentheses.vim'
 Plug 'jpalardy/vim-slime'
 Plug 'sheerun/vim-polyglot'
-
+Plug 'jalvesaq/nvim-r'
 
 "Autocomplete/linting
 Plug 'Valloric/YouCompleteMe', { 'do': './install.py'}
@@ -134,12 +139,14 @@ Plug 'lifepillar/vim-solarized8'
 Plug 'gertjanreynaert/cobalt2-vim-theme'
 Plug 'kristijanhusak/vim-hybrid-material'
 Plug 'mkarmona/colorsbox'
-
+Plug 'edkolev/tmuxline.vim'
 
 "Misc
 Plug 'tpope/vim-fugitive'
 Plug 'scrooloose/nerdcommenter'
-Plug 'tpope/vim-dispatch'
+Plug 'ervandew/supertab'
+
+Plug 'bfredl/nvim-ipy'
 
 " All of your Plugins must be added before the following line
 call plug#end()            " required
@@ -153,10 +160,6 @@ colorscheme flattown
 
 let g:easytags_async = 1
 
-"set hidden
-""let g:racer_cmd = "/usr/local/bin/racer"
-"let $RUST_SRC_PATH="~/.multirust/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/src"
-""let g:racer_experimental_completer = 1
 
 nnoremap ;; :s/\v(.)$/\=submatch(1)==';' ? '' : submatch(1).';'<CR> :noh <CR>
 nnoremap ,, :s/\v(.)$/\=submatch(1)==',' ? '' : submatch(1).','<CR> :noh <CR>
@@ -167,14 +170,14 @@ if executable('rg')
 endif
 
 augroup myvimrc
-    autocmd!
-    autocmd QuickFixCmdPost [^l]* cwindow
-    autocmd QuickFixCmdPost l*    lwindow
+  autocmd!
+  autocmd QuickFixCmdPost [^l]* cwindow
+  autocmd QuickFixCmdPost l*    lwindow
 augroup END"
 " Vim Autocompletion Configuration
 
 let g:ycm_global_ycm_extra_conf = '~/.ycm_global_ycm_extra_conf'
-let g:ycm_rust_src_path = '/home/ftlc/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/src'
+let g:ycm_rust_src_path = '/usr/lib/rustlib/src/rust/src/'
 
 
 nnoremap <leader>b :ls<CR>:b<space>
@@ -277,4 +280,35 @@ let g:airline#extensions#ale#enabled = 1
 let g:ycm_autoclose_preview_window_after_completion=1
 map <leader>[  :YcmCompleter GoToDefinitionElseDeclaration<CR>
 
+" make YCM compatible with UltiSnips (using supertab)
+let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
+let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
+let g:SuperTabDefaultCompletionType = '<C-n>'
 
+" better key bindings for UltiSnipsExpandTrigger
+let g:UltiSnipsExpandTrigger = "<s-tab>"
+let g:UltiSnipsJumpForwardTrigger = "<tab>"
+" let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
+
+
+let g:closetag_filenames = '*.html.eex, *.html.erb, *.html,*.xhtml,*.phtml'
+
+
+nmap <silent> <leader>] <Plug>(ale_next_wrap)
+
+let g:ale_cpp_gcc_options = "-std=c++11 -Wall"
+let g:ale_cpp_clang_options = "-std=c++11 -Wall"
+let g:ale_cpp_clangcheck_options = "-std=c++11 -Wall"
+let g:ale_cpp_clangtidy_options = "-std=c++11 -Wall"
+let g:ale_cpp_cppcheck_options = "-std=c++11 -Wall"
+let g:ale_cpp_cpplink_options = "-std=c++11 -Wall"
+let g:ale_c_clangformat_options = "-std=c++11 -Wall"
+
+let g:ale_cpp_gcc_executable = "g++"
+
+let g:ycm_confirm_extra_conf = 0
+
+let g:nvim_ipy_perform_mappings = 0
+
+map <silent> <c-s> <Plug>(IPy-Run)
+map <silent> <c-d> <Plug>(IPy-RunCell)

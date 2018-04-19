@@ -56,7 +56,7 @@ plugins=(archlinux sudo)
 
 # User configuration
 
-export PATH="/home/ftlc/.gem/ruby/2.4.0/bin:/home/ftlc/.cargo/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/sbin:/usr/local/bin:/usr/bin:/usr/lib/jvm/default/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl:/opt/staruml/:/home/ftlc/.vimpkg/bin:/home/ftlc/scripts"
+export PATH="/home/harry/.gem/ruby/2.4.0/bin:/home/harry/.cargo/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/sbin:/usr/local/bin:/usr/bin:/usr/lib/jvm/default/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl:/opt/staruml/:/home/harry/.vimpkg/bin:/home/harry/scripts"
 # export MANPATH="/usr/local/man:$MANPATH"
 
 source $ZSH/oh-my-zsh.sh
@@ -114,3 +114,4 @@ export PATH="$HOME/.yarn/bin:$PATH"
 export PATH="$PATH:/home/harry/.gem/ruby/2.4.0/bin"
 
 
+export RUST_SRC_PATH=/usr/lib/rustlib/src/rust/src
