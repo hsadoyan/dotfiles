@@ -121,10 +121,12 @@ Plug 'jalvesaq/nvim-r'
 Plug 'Valloric/YouCompleteMe', { 'do': './install.py'}
 Plug 'tpope/vim-surround'
 Plug 'w0rp/ale'
-Plug 'jiangmiao/auto-pairs'
+" Plug 'jiangmiao/auto-pairs'
 Plug 'alvan/vim-closetag'
+Plug 'kristijanhusak/vim-hybrid-material'
 
 "Appearance
+Plug 'skielbasa/vim-material-monokai'
 Plug 'flazz/vim-colorschemes'
 Plug 'tyrannicaltoucan/vim-quantum'
 Plug 'hzchirs/vim-material'
@@ -145,6 +147,7 @@ Plug 'edkolev/tmuxline.vim'
 Plug 'tpope/vim-fugitive'
 Plug 'scrooloose/nerdcommenter'
 Plug 'ervandew/supertab'
+Plug 'airblade/vim-gitgutter'
 
 Plug 'bfredl/nvim-ipy'
 
@@ -154,7 +157,7 @@ call plug#end()            " required
 
 filetype plugin indent on    
 
-colorscheme flattown
+colorscheme material-monokai
 
 :highlight Search guibg=Grey40
 
