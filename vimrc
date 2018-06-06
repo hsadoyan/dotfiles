@@ -102,7 +102,8 @@ Plug 'honza/vim-snippets'
 "Language Specific
 Plug 'tpope/vim-rails'
 Plug 'leafgarland/typescript-vim'
-Plug 'Quramy/tsuquyomi'
+Plug 'Shougo/vimproc.vim', {'do' : 'make'}
+" Plug 'Quramy/tsuquyomi'
 Plug 'rust-lang/rust.vim'
 Plug 'racer-rust/vim-racer'
 Plug 'yalesov/vim-emblem'
