@@ -1,11 +1,14 @@
 [user]
 	name = Harry Sadoyan
 	email = harrysadoyan@gmail.com
+ 
+[color]
+  branch = auto
+  diff = auto
+  status = auto
+
+[alias]
+  hist = log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short
+
 [core]
-	excludesfile = /Users/t_sadoh/.gitignore_global
-[difftool "sourcetree"]
-	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
-	path = 
-[mergetool "sourcetree"]
-	cmd = /Users/t_sadoh/Applications/SourceTree 2.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
-	trustExitCode = true
+  excludesfile = ~/.gitignore_global

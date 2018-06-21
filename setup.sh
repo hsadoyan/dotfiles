@@ -1,3 +1,4 @@
+# -------------   VIM SETUP
 # Setup vimrc
 ln -s ~/dotfiles/vimrc ~/.vimrc
 
@@ -17,4 +18,8 @@ ln -s ~/.vim $XDG_CONFIG_HOME/nvim
 ln -s ~/.vimrc $XDG_CONFIG_HOME/nvim/init.vim
 
 
+# 
+chsh -s $(where zsh)
+echo 'alias grep="rg"' >> ~/.zshrc
+echo 'export $EDITOR=nvim' >> ~/.zshrc
 
