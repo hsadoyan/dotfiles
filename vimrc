@@ -168,6 +168,7 @@ let g:easytags_async = 1
 nnoremap ;; :s/\v(.)$/\=submatch(1)==';' ? '' : submatch(1).';'<CR> :noh <CR>
 nnoremap ,, :s/\v(.)$/\=submatch(1)==',' ? '' : submatch(1).','<CR> :noh <CR>
 
+
 map Y y$
 if executable('rg')
   set grepprg=rg\ --vimgrep
@@ -199,6 +200,7 @@ nnoremap <leader>g :grep!<space>
 
 nnoremap <leader>f :Files<CR>
 
+nnoremap <leader>te :tabedit<CR>
 nnoremap <leader>t :ta<space>
 nnoremap <leader>tl :tselect<CR>
 nnoremap <leader>tn :tn<CR>
@@ -316,3 +318,6 @@ let g:nvim_ipy_perform_mappings = 0
 
 map <silent> <c-s> <Plug>(IPy-Run)
 map <silent> <c-d> <Plug>(IPy-RunCell)
+
+let g:ale_lint_on_text_changed = 0
+let g:ale_lint_on_save = 1
