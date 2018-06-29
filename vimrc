@@ -63,7 +63,7 @@ set modelines=0 " special comments at the end of the file that allow certain set
 
 
 
-" Turn on line numbering. Turn it off with "set nonu" 
+" Turn on line numbering. Turn it off with 'set nonu'
 if exists('+rnu')
   set rnu
   au InsertEnter * :set nu
@@ -116,6 +116,7 @@ Plug 'kien/rainbow_parentheses.vim'
 Plug 'jpalardy/vim-slime'
 Plug 'sheerun/vim-polyglot'
 Plug 'jalvesaq/nvim-r'
+Plug 'fatih/vim-go'
 
 "Autocomplete/linting
 Plug 'Valloric/YouCompleteMe', { 'do': './install.py'}
