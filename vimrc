@@ -96,13 +96,12 @@ Plug 'yangmillstheory/vim-snipe'
 " Plug 'xolox/vim-misc'
 " Plug 'xolox/vim-easytags'
 Plug 'tpope/vim-projectionist'
-Plug 'SirVer/ultisnips'
-Plug 'honza/vim-snippets'
 
 "Language Specific
 Plug 'tpope/vim-rails'
 Plug 'leafgarland/typescript-vim'
-Plug 'Quramy/tsuquyomi'
+Plug 'Shougo/vimproc.vim', {'do' : 'make'}
+" Plug 'Quramy/tsuquyomi'
 Plug 'rust-lang/rust.vim'
 Plug 'racer-rust/vim-racer'
 Plug 'yalesov/vim-emblem'
@@ -117,6 +116,7 @@ Plug 'jpalardy/vim-slime'
 Plug 'sheerun/vim-polyglot'
 Plug 'jalvesaq/nvim-r'
 Plug 'fatih/vim-go'
+Plug 'sebdah/vim-delve'
 
 "Autocomplete/linting
 Plug 'Valloric/YouCompleteMe', { 'do': './install.py'}
@@ -286,17 +286,6 @@ let g:airline#extensions#ale#enabled = 1
 let g:ycm_autoclose_preview_window_after_completion=1
 map <leader>[  :YcmCompleter GoToDefinitionElseDeclaration<CR>
 
-" make YCM compatible with UltiSnips (using supertab)
-let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
-let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
-let g:SuperTabDefaultCompletionType = '<C-n>'
-
-" better key bindings for UltiSnipsExpandTrigger
-let g:UltiSnipsExpandTrigger = "<s-tab>"
-let g:UltiSnipsJumpForwardTrigger = "<tab>"
-" let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
-
-
 let g:closetag_filenames = '*.html.eex, *.html.erb, *.html,*.xhtml,*.phtml'
 
 
@@ -321,3 +310,23 @@ map <silent> <c-d> <Plug>(IPy-RunCell)
 
 let g:ale_lint_on_text_changed = 0
 let g:ale_lint_on_save = 1
+let g:airline#extensions#ale#enabled = 1
+
+
+" format with goimports instead of gofmt
+let g:go_fmt_command = "goimports"
+let g:go_highlight_build_constraints = 1
+let g:go_highlight_extra_types = 1
+let g:go_highlight_fields = 1
+let g:go_highlight_functions = 1
+let g:go_highlight_methods = 1
+let g:go_highlight_operators = 1
+let g:go_highlight_structs = 1
+let g:go_highlight_types = 1
+let g:go_auto_sameids = 1
+
+let g:ale_sign_error = '⤫'
+let g:ale_sign_warning = '⚠'
+let g:go_auto_type_info = 1
+
+au FileType go nmap <leader>ll :GoDeclsDir<cr>

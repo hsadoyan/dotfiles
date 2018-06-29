@@ -25,6 +25,7 @@ exports.configuration = {
     //"oni.loadInitVim": false,
     //"editor.fontSize": "12px",
     //"editor.fontFamily": "Monaco",
+    "editor.textMateHighlighting.enabled": true,
     // UI customizations
     "ui.animations.enabled": true,
     "ui.fontSmoothing": "auto",
