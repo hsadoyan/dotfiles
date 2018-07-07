@@ -63,7 +63,7 @@ set modelines=0 " special comments at the end of the file that allow certain set
 
 
 
-" Turn on line numbering. Turn it off with "set nonu" 
+" Turn on line numbering. Turn it off with 'set nonu'
 if exists('+rnu')
   set rnu
   au InsertEnter * :set nu
