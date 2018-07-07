@@ -62,7 +62,7 @@ export PATH="/home/harry/.gem/ruby/2.4.0/bin:/home/harry/.cargo/bin:/usr/bin:/bi
 source $ZSH/oh-my-zsh.sh
 
 # You may need to manually set your language environment
- export LANG=en_US.utf8
+export LANG=en_US.utf8
 
 
 export EDITOR='nvim'
@@ -112,6 +112,7 @@ BASE16_SHELL="$HOME/.config/base16-shell/base16-material.dark.sh"
 
 export PATH="$HOME/.yarn/bin:$PATH"
 export PATH="$PATH:/home/harry/.gem/ruby/2.4.0/bin"
+export PATH="$PATH:/home/harry/go/bin"
 
 
 export RUST_SRC_PATH=/usr/lib/rustlib/src/rust/src
