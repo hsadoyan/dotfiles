@@ -38,3 +38,6 @@ alias host4="ssh cs4516@10.45.7.4"
 alias vm="ssh -p 2222 hsadoyan@127.0.0.1"
 alias deflayout="source ~/.screenlayout/deflayout.sh"
 alias hdmi="source ~/.screenlayout/hdmi.sh"
+
+
+alias grep="rg"
