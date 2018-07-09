@@ -14,7 +14,7 @@ set linebreak   " turn on word wrapping
 
 set tabstop=2   " Number of spaces per <TAB> when opening a file
 set softtabstop=0 noexpandtab  " number of spaces per tab when editing a file
-set expandtab   "turn <TAB> into 4 spaces. Good for python and bash.
+set expandtab   "turn <TAB> into 2 spaces
 set shiftwidth=2
 
 
@@ -63,7 +63,7 @@ set modelines=0 " special comments at the end of the file that allow certain set
 
 
 
-" Turn on line numbering. Turn it off with 'set nonu'
+" Turn on relative line numbering
 if exists('+rnu')
   set rnu
   au InsertEnter * :set nu
@@ -89,13 +89,11 @@ call plug#begin('~/.vim/bundle')
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'christoomey/vim-tmux-navigator'
-Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 Plug 'scrooloose/nerdtree'
 Plug 'tpope/vim-unimpaired'
 Plug 'yangmillstheory/vim-snipe'
 " Plug 'xolox/vim-misc'
 " Plug 'xolox/vim-easytags'
-Plug 'tpope/vim-projectionist'
 
 "Language Specific
 Plug 'tpope/vim-rails'
@@ -122,11 +120,12 @@ Plug 'sebdah/vim-delve'
 Plug 'Valloric/YouCompleteMe', { 'do': './install.py'}
 Plug 'tpope/vim-surround'
 Plug 'w0rp/ale'
-" Plug 'jiangmiao/auto-pairs'
+Plug 'jiangmiao/auto-pairs'
 Plug 'alvan/vim-closetag'
-Plug 'kristijanhusak/vim-hybrid-material'
 
 "Appearance
+Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
+Plug 'kristijanhusak/vim-hybrid-material'
 Plug 'skielbasa/vim-material-monokai'
 Plug 'flazz/vim-colorschemes'
 Plug 'tyrannicaltoucan/vim-quantum'
@@ -165,6 +164,7 @@ colorscheme material-monokai
 let g:easytags_async = 1
 
 
+" Toggle ; and , at the end of the line by douple tapping them
 nnoremap ;; :s/\v(.)$/\=submatch(1)==';' ? '' : submatch(1).';'<CR> :noh <CR>
 nnoremap ,, :s/\v(.)$/\=submatch(1)==',' ? '' : submatch(1).','<CR> :noh <CR>
 
@@ -186,7 +186,7 @@ let g:ycm_rust_src_path = '/usr/lib/rustlib/src/rust/src/'
 
 
 nnoremap <leader>b :ls<CR>:b<space>
-nnoremap <leader>' :s/"/'/g<CR>
+nnoremap <leader>' :s/"/'/g<CR>       
 nnoremap <leader>" :s/'/"/g<CR>
 nnoremap <leader>l :nohl<CR>
 
