@@ -21,8 +21,8 @@ source ~/dotfiles/aliases
 source ~/.aliases
 
 # force_color_prompt=yes
-source /usr/share/fzf/key-bindings.zsh
-source /usr/share/fzf/completion.zsh
+# source /usr/share/fzf/key-bindings.zsh
+# source /usr/share/fzf/completion.zsh
 
 setopt autocd
 setopt globdots
@@ -60,4 +60,4 @@ export FZF_DEFAULT_OPTS='
   --color=fg:#839496,header:#586e75,info:#cb4b16,pointer:#719e07
   --color=marker:#719e07,fg+:#839496,prompt:#719e07,hl+:#719e07
 '
-eval $( dircolors -b $HOME/dotfiles/LS_COLORS )
+# eval $( dircolors -b $HOME/dotfiles/LS_COLORS )
