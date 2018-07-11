@@ -329,4 +329,5 @@ let g:ale_sign_error = '⤫'
 let g:ale_sign_warning = '⚠'
 let g:go_auto_type_info = 1
 
-au FileType go nmap <leader>ll :GoDeclsDir<cr>
+
+au FileType go nmap gl :GoDeclsDir<cr>
