@@ -61,3 +61,22 @@ export FZF_DEFAULT_OPTS='
   --color=marker:#719e07,fg+:#839496,prompt:#719e07,hl+:#719e07
 '
 # eval $( dircolors -b $HOME/dotfiles/LS_COLORS )
+
+
+## Fzf git completion
+_fzf_complete_git() {
+    ARGS="$@"
+    local branches
+    branches=$(git branch )
+    if [[ $ARGS == 'git co'* ]]; then
+        _fzf_complete "--reverse --multi" "$@" < <(
+            echo $branches
+        )
+    else
+        eval "zle ${fzf_default_completion:-expand-or-complete}"
+    fi
+}
+
+_fzf_complete_git_post() {
+    awk '{print $1}'
+}

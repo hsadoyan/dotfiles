@@ -196,6 +196,7 @@ nnoremap <leader>w :w<CR>
 " nnoremap <leader>s :sfind<space>
 " nnoremap <leader>v :vert sfind<space>
 nnoremap <leader>g :grep!<space>
+nnoremap <leader>G :Find<CR>
 
 
 nnoremap <leader>f :Files<CR>
@@ -207,8 +208,6 @@ nnoremap <leader>tn :tn<CR>
 nnoremap <leader>tp :tp<CR>
 nnoremap <leader>p :pop<CR>
 
-nnoremap K :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
-
 set path+=*/**
 
 nnoremap <leader>dt :diffget //2<CR>
@@ -217,10 +216,10 @@ nnoremap <leader>du :diffupdate<CR>
 
 " Vim snipe mappings. Let's see how this works
 "Character
-map <leader><leader>F <Plug>(snipe-F)
-map <leader><leader>f <Plug>(snipe-f)
-map <leader><leader>T <Plug>(snipe-T)
-map <leader><leader>t <Plug>(snipe-t)
+map F <Plug>(snipe-F)
+map f <Plug>(snipe-f)
+map T <Plug>(snipe-T)
+map t <Plug>(snipe-t)
 
 " Word
 map <leader><leader>w <Plug>(snipe-w)
@@ -324,9 +323,11 @@ let g:go_highlight_operators = 1
 let g:go_highlight_structs = 1
 let g:go_highlight_types = 1
 let g:go_auto_sameids = 1
+let g:go_auto_type_info = 1
 
 let g:ale_sign_error = '⤫'
 let g:ale_sign_warning = '⚠'
-let g:go_auto_type_info = 1
 
-au FileType go nmap <leader>ll :GoDeclsDir<cr>
+au FileType go nmap gl :GoDeclsDir<cr>
+nmap K :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
+
