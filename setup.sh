@@ -1,6 +1,4 @@
 # -------------   VIM SETUP
-# Setup vimrc
-ln -s ~/dotfiles/vimrc ~/.vimrc
 
 # Setup Vim plug
 
@@ -18,8 +16,26 @@ ln -s ~/.vim $XDG_CONFIG_HOME/nvim
 ln -s ~/.vimrc $XDG_CONFIG_HOME/nvim/init.vim
 
 
-# 
-chsh -s $(where zsh)
-echo 'alias grep="rg"' >> ~/.zshrc
-echo 'export $EDITOR=nvim' >> ~/.zshrc
+# Setup vimrc
+ln -s ~/dotfiles/vimrc ~/.vimrc
+
+# Install zsh
+sudo apt-get install zsh
+chsh -s $(which zsh)
+zsh
+git clone --recursive https://github.com/sorin-ionescu/prezto.git "${ZDOTDIR:-$HOME}/.zprezto"
+
+
+setopt EXTENDED_GLOB
+for rcfile in "${ZDOTDIR:-$HOME}"/.zprezto/runcoms/^README.md(.N); do
+    ln -s "$rcfile" "${ZDOTDIR:-$HOME}/.${rcfile:t}"
+  done
+done
+
+rm ~/.zshrc
+ln -s ~/dotfiles/zshrc ~/.zshrc
+
+# install pip
+sudo apt-get install python-pip python-dev build-essential 
+sudo pip install --upgrade pip 
 
