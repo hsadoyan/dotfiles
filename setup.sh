@@ -20,7 +20,7 @@ ln -s ~/.vimrc $XDG_CONFIG_HOME/nvim/init.vim
 ln -s ~/dotfiles/vimrc ~/.vimrc
 
 # Install zsh
-sudo apt-get install zsh
+#sudo apt-get install zsh
 chsh -s $(which zsh)
 zsh
 git clone --recursive https://github.com/sorin-ionescu/prezto.git "${ZDOTDIR:-$HOME}/.zprezto"
@@ -35,7 +35,4 @@ done
 rm ~/.zshrc
 ln -s ~/dotfiles/zshrc ~/.zshrc
 
-# install pip
-sudo apt-get install python-pip python-dev build-essential 
-sudo pip install --upgrade pip 
 

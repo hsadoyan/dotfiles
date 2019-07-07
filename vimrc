@@ -97,6 +97,7 @@ Plug 'yangmillstheory/vim-snipe'
 
 "Language Specific
 Plug 'tpope/vim-rails'
+Plug 'vim-ruby/vim-ruby'
 Plug 'leafgarland/typescript-vim'
 Plug 'Shougo/vimproc.vim', {'do' : 'make'}
 " Plug 'Quramy/tsuquyomi'
@@ -117,7 +118,16 @@ Plug 'fatih/vim-go'
 Plug 'sebdah/vim-delve'
 
 "Autocomplete/linting
-Plug 'Valloric/YouCompleteMe', { 'do': './install.py'}
+" Plug 'Valloric/YouCompleteMe', { 'do': './install.py'}
+"" Use release branch
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'neoclide/coc-snippets'
+
+" Track the engine.
+Plug 'SirVer/ultisnips'
+" Snippets are separated from the engine. Add this if you want them:
+Plug 'honza/vim-snippets'
+
 Plug 'tpope/vim-surround'
 Plug 'w0rp/ale'
 Plug 'jiangmiao/auto-pairs'
@@ -195,8 +205,8 @@ nnoremap <leader>w :w<CR>
 " nnoremap <leader>f :find<space> 
 " nnoremap <leader>s :sfind<space>
 " nnoremap <leader>v :vert sfind<space>
-nnoremap <leader>g :grep!<space>
-nnoremap <leader>G :Find<CR>
+nnoremap <leader>G :grep!<space>
+nnoremap <leader>g :Find<CR>
 
 
 nnoremap <leader>f :Files<CR>
@@ -328,4 +338,14 @@ let g:go_auto_type_info = 1
 let g:ale_sign_error = '⤫'
 let g:ale_sign_warning = '⚠'
 
+
 au FileType go nmap gl :GoDeclsDir<cr>
+
+
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
+runtime macros/matchit.vim
+
