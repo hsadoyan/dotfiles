@@ -161,6 +161,7 @@ Plug 'ervandew/supertab'
 Plug 'airblade/vim-gitgutter'
 
 Plug 'bfredl/nvim-ipy'
+Plug 'tpope/vim-eunuch'
 
 " All of your Plugins must be added before the following line
 call plug#end()            " required
@@ -170,7 +171,7 @@ filetype plugin indent on
 
 colorscheme material-monokai
 
-:highlight Search guibg=Grey40
+highlight Search guibg=Grey40
 
 let g:easytags_async = 1
 
@@ -193,7 +194,7 @@ augroup END"
 " Vim Autocompletion Configuration
 
 let g:ycm_global_ycm_extra_conf = '~/.ycm_global_ycm_extra_conf'
-let g:ycm_rust_src_path = '/usr/lib/rustlib/src/rust/src/'
+let g:ycm_rust_src_path = '/home/harry/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/src/'
 
 
 nnoremap <leader>b :ls<CR>:b<space>
@@ -343,6 +344,10 @@ let g:ale_sign_warning = '⚠'
 
 au FileType go nmap gl :GoDeclsDir<cr>
 
+
+
+set nobackup
+set nowritebackup
 
 nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
