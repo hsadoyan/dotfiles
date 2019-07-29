@@ -155,6 +155,7 @@ Plug 'edkolev/tmuxline.vim'
 
 "Misc
 Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-eunuch'
 Plug 'scrooloose/nerdcommenter'
 Plug 'ervandew/supertab'
 Plug 'airblade/vim-gitgutter'
@@ -210,6 +211,7 @@ nnoremap <leader>g :Find<CR>
 
 
 nnoremap <leader>f :Files<CR>
+nnoremap <leader>F :GFiles?<CR>
 
 nnoremap <leader>te :tabedit<CR>
 nnoremap <leader>t :ta<space>
