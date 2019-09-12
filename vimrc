@@ -74,12 +74,7 @@ else
   set number
 endif
 
-
-set foldenable  " enable folding. i.e. you can minimize your functions
-set foldlevelstart=10 " open up to 5 folds when opening file.
-set foldmethod=syntax   "tells vim where to fold. Syntax is also an option, as well as some others.
-
-set rtp+=/usr/bin/fzf
+set rtp+=/usr/local/bin/fzf
 
 """"""""""""""""""""""""" MAPPINGS """""""""""""""""""""""""""""
 
@@ -89,7 +84,7 @@ call plug#begin('~/.vim/bundle')
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'christoomey/vim-tmux-navigator'
-Plug 'scrooloose/nerdtree'
+Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 Plug 'tpope/vim-unimpaired'
 Plug 'yangmillstheory/vim-snipe'
 " Plug 'xolox/vim-misc'
@@ -98,38 +93,39 @@ Plug 'yangmillstheory/vim-snipe'
 "Language Specific
 Plug 'tpope/vim-rails'
 Plug 'vim-ruby/vim-ruby'
-Plug 'leafgarland/typescript-vim'
-Plug 'Shougo/vimproc.vim', {'do' : 'make'}
+" Plug 'leafgarland/typescript-vim'
+" Plug 'Shougo/vimproc.vim', {'do' : 'make'}
 " Plug 'Quramy/tsuquyomi'
-Plug 'rust-lang/rust.vim'
-Plug 'racer-rust/vim-racer'
-Plug 'yalesov/vim-emblem'
-Plug 'kchmck/vim-coffee-script'
-Plug 'elixir-lang/vim-elixir'
+" Plug 'rust-lang/rust.vim'
+" Plug 'racer-rust/vim-racer'
+" Plug 'yalesov/vim-emblem'
+" Plug 'kchmck/vim-coffee-script'
+" Plug 'elixir-lang/vim-elixir'
 Plug 'tpope/vim-endwise'
-Plug 'avdgaag/vim-phoenix'
-Plug 'Vimjas/vim-python-pep8-indent'
-Plug 'wlangstroth/vim-racket'
-Plug 'kien/rainbow_parentheses.vim'
-Plug 'jpalardy/vim-slime'
-Plug 'sheerun/vim-polyglot'
-Plug 'jalvesaq/nvim-r'
-Plug 'fatih/vim-go'
-Plug 'sebdah/vim-delve'
+" Plug 'avdgaag/vim-phoenix'
+" Plug 'Vimjas/vim-python-pep8-indent'
+" Plug 'wlangstroth/vim-racket'
+" Plug 'kien/rainbow_parentheses.vim'
+" Plug 'jpalardy/vim-slime'
+" Plug 'sheerun/vim-polyglot'
+" Plug 'jalvesaq/nvim-r'
+" Plug 'fatih/vim-go'
+" Plug 'sebdah/vim-delve'
 
 "Autocomplete/linting
 " Plug 'Valloric/YouCompleteMe', { 'do': './install.py'}
 "" Use release branch
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'neoclide/coc-snippets'
+" Plug 'neoclide/coc-snippets'
 
 " Track the engine.
-Plug 'SirVer/ultisnips'
+" Plug 'SirVer/ultisnips', { 'on': 'InsertEnter' }
 " Snippets are separated from the engine. Add this if you want them:
-Plug 'honza/vim-snippets'
+" Plug 'honza/vim-snippets'
 
+Plug 'neomake/neomake'
 Plug 'tpope/vim-surround'
-Plug 'w0rp/ale'
+" Plug 'dense-analysis/ale'
 Plug 'jiangmiao/auto-pairs'
 Plug 'alvan/vim-closetag'
 
@@ -138,29 +134,24 @@ Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 Plug 'kristijanhusak/vim-hybrid-material'
 Plug 'skielbasa/vim-material-monokai'
 Plug 'flazz/vim-colorschemes'
-Plug 'tyrannicaltoucan/vim-quantum'
 Plug 'hzchirs/vim-material'
 Plug 'zcodes/vim-colors-basic'
 Plug 'ryanoasis/vim-devicons'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-Plug 'romainl/flattened'
-Plug 'KeitaNakamura/neodark.vim'
-Plug 'rakr/vim-one'
 Plug 'lifepillar/vim-solarized8'
-Plug 'gertjanreynaert/cobalt2-vim-theme'
 Plug 'kristijanhusak/vim-hybrid-material'
 Plug 'mkarmona/colorsbox'
 Plug 'edkolev/tmuxline.vim'
-
+Plug 'Rigellute/rigel'
 "Misc
-Plug 'tpope/vim-fugitive'
+" Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-eunuch'
 Plug 'scrooloose/nerdcommenter'
 Plug 'ervandew/supertab'
-Plug 'airblade/vim-gitgutter'
+" Plug 'airblade/vim-gitgutter'
 
-Plug 'bfredl/nvim-ipy'
+" Plug 'bfredl/nvim-ipy'
 Plug 'tpope/vim-eunuch'
 
 " All of your Plugins must be added before the following line
@@ -169,7 +160,8 @@ call plug#end()            " required
 
 filetype plugin indent on    
 
-colorscheme material-monokai
+colorscheme rigel
+" colorscheme material-monokai
 
 highlight Search guibg=Grey40
 
@@ -210,16 +202,22 @@ nnoremap <leader>w :w<CR>
 nnoremap <leader>G :grep!<space>
 nnoremap <leader>g :Find<CR>
 
+nnoremap <leader>t :Tags<CR>
+nnoremap <leader>T :BTags<CR>
+
+nnoremap <leader>h :History:<CR>
+nnoremap <leader>/ :BLines<CR>
+
 
 nnoremap <leader>f :Files<CR>
 nnoremap <leader>F :GFiles?<CR>
 
-nnoremap <leader>te :tabedit<CR>
-nnoremap <leader>t :ta<space>
-nnoremap <leader>tl :tselect<CR>
-nnoremap <leader>tn :tn<CR>
-nnoremap <leader>tp :tp<CR>
-nnoremap <leader>p :pop<CR>
+" nnoremap <leader>te :tabedit<CR>
+" nnoremap <leader>t :ta<space>
+" nnoremap <leader>tl :tselect<CR>
+" nnoremap <leader>tn :tn<CR>
+" nnoremap <leader>tp :tp<CR>
+" nnoremap <leader>p :pop<CR>
 
 set path+=*/**
 
@@ -244,10 +242,9 @@ map <leader><leader>B <Plug>(snipe-B)
 map <leader><leader>ge <Plug>(snipe-ge)
 map <leader><leader>gE <Plug>(snipe-gE)
 
-autocmd FileType ruby compiler ruby
+" autocmd FileType ruby compiler ruby
 
 au FileType ruby setl sw=2 sts=2 et
-au FileType c setl sw=4 sts=4 et
 
 " --column: Show column number
 " --line-number: Show line number
@@ -262,6 +259,8 @@ au FileType c setl sw=4 sts=4 et
 command! -bang -nargs=* Find call fzf#vim#grep('rg --column --line-number --no-heading --fixed-strings --ignore-case --follow --glob "!.git/*" --color "always" '.shellescape(<q-args>), 1, <bang>0)
 
 map <C-n> :NERDTreeToggle<CR>
+" let g:NERDTreeHijackNetrw=0
+
 let g:DevIconsEnableFolderPatternMatching = 1
 let g:WebDevIconsUnicodeDecorateFolderNodes = 1
 
@@ -270,48 +269,38 @@ let g:NERDSpaceDelims = 1
 
 set diffopt+=vertical
 
-if has("autocmd")
-  au BufReadPost *.rkt,*.rktl set filetype=racket
-  au filetype racket set lisp
-  au filetype racket set autoindent
-endif
+" if has("autocmd")
+  " au BufReadPost *.rkt,*.rktl set filetype=racket
+  " au filetype racket set lisp
+  " au filetype racket set autoindent
+" endif
 
 
-if exists('$TMUX') 
+" if exists('$TMUX') 
 
-  let g:slime_target = "tmux"
-  let g:slime_default_config = {"socket_name": split($TMUX, ",")[0], "target_pane": ":.1"}
-endif
-
-
-au VimEnter * RainbowParenthesesToggle
-au Syntax * RainbowParenthesesLoadRound
-au Syntax * RainbowParenthesesLoadSquare
-au Syntax * RainbowParenthesesLoadBraces
+  " let g:slime_target = "tmux"
+  " let g:slime_default_config = {"socket_name": split($TMUX, ",")[0], "target_pane": ":.1"}
+" endif
 
 
-let g:ale_completion_enabled = 1
-let g:airline#extensions#ale#enabled = 1
+" au VimEnter * RainbowParenthesesToggle
+" au Syntax * RainbowParenthesesLoadRound
+" au Syntax * RainbowParenthesesLoadSquare
+" au Syntax * RainbowParenthesesLoadBraces
+
+
+" let g:airline#extensions#ale#enabled = 1
 
 
 
-let g:ycm_autoclose_preview_window_after_completion=1
-map <leader>[  :YcmCompleter GoToDefinitionElseDeclaration<CR>
+" let g:ycm_autoclose_preview_window_after_completion=1
+" map <leader>[  :YcmCompleter GoToDefinitionElseDeclaration<CR>
 
 let g:closetag_filenames = '*.html.eex, *.html.erb, *.html,*.xhtml,*.phtml'
 
 
-nmap <silent> <leader>] <Plug>(ale_next_wrap)
+" nmap <silent> <leader>] <Plug>(ale_next_wrap)
 
-let g:ale_cpp_gcc_options = "-std=c++11 -Wall"
-let g:ale_cpp_clang_options = "-std=c++11 -Wall"
-let g:ale_cpp_clangcheck_options = "-std=c++11 -Wall"
-let g:ale_cpp_clangtidy_options = "-std=c++11 -Wall"
-let g:ale_cpp_cppcheck_options = "-std=c++11 -Wall"
-let g:ale_cpp_cpplink_options = "-std=c++11 -Wall"
-let g:ale_c_clangformat_options = "-std=c++11 -Wall"
-
-let g:ale_cpp_gcc_executable = "g++"
 
 let g:ycm_confirm_extra_conf = 0
 
@@ -320,10 +309,11 @@ let g:nvim_ipy_perform_mappings = 0
 map <silent> <c-s> <Plug>(IPy-Run)
 map <silent> <c-d> <Plug>(IPy-RunCell)
 
-let g:ale_lint_on_text_changed = 0
-let g:ale_lint_on_save = 1
-let g:airline#extensions#ale#enabled = 1
+" let g:ale_lint_on_text_changed = 0
+" let g:ale_lint_on_save = 1
 
+" let g:ale_fixers = ['rubocop']
+" let g:ale_fix_on_save = 1
 
 " format with goimports instead of gofmt
 let g:go_fmt_command = "goimports"
@@ -338,13 +328,15 @@ let g:go_highlight_types = 1
 let g:go_auto_sameids = 1
 let g:go_auto_type_info = 1
 
-let g:ale_sign_error = '⤫'
-let g:ale_sign_warning = '⚠'
+" let g:ale_sign_error = '⤫'
+" let g:ale_sign_warning = '⚠'
 
 
 au FileType go nmap gl :GoDeclsDir<cr>
 
 
+" When writing a buffer (no delay).
+call neomake#configure#automake('w')
 
 set nobackup
 set nowritebackup
@@ -356,3 +348,16 @@ nmap <silent> gr <Plug>(coc-references)
 
 runtime macros/matchit.vim
 
+map <c-x><c-j> <plug>(fzf-complete-file)
+imap <c-x><c-f> <plug>(fzf-complete-path)
+" inoremap <expr> <c-x><c-k> fzf#vim#complete('cat /usr/share/dict/words')
+
+" Disable netrw. ironically
+let loaded_netrwPlugin = 1
+" set synmaxcol=120
+" syntax sync minlines=512
+" set regexpengine=1
+let g:ruby_path="/Users/harry/.rvm/rubies/ruby-2.3.8/bin/ruby"
+
+
+set re=1
