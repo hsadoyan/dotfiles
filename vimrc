@@ -86,13 +86,14 @@ Plug 'junegunn/fzf.vim'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 Plug 'tpope/vim-unimpaired'
+Plug 'tpope/vim-surround'
 Plug 'yangmillstheory/vim-snipe'
 " Plug 'xolox/vim-misc'
 " Plug 'xolox/vim-easytags'
 
 "Language Specific
-Plug 'tpope/vim-rails'
-Plug 'vim-ruby/vim-ruby'
+"Plug 'tpope/vim-rails'
+"Plug 'vim-ruby/vim-ruby'
 " Plug 'leafgarland/typescript-vim'
 " Plug 'Shougo/vimproc.vim', {'do' : 'make'}
 " Plug 'Quramy/tsuquyomi'
@@ -101,7 +102,7 @@ Plug 'vim-ruby/vim-ruby'
 " Plug 'yalesov/vim-emblem'
 " Plug 'kchmck/vim-coffee-script'
 " Plug 'elixir-lang/vim-elixir'
-Plug 'tpope/vim-endwise'
+"Plug 'tpope/vim-endwise'
 " Plug 'avdgaag/vim-phoenix'
 " Plug 'Vimjas/vim-python-pep8-indent'
 " Plug 'wlangstroth/vim-racket'
@@ -123,36 +124,37 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " Snippets are separated from the engine. Add this if you want them:
 " Plug 'honza/vim-snippets'
 
-Plug 'neomake/neomake'
-Plug 'tpope/vim-surround'
+"Plug 'neomake/neomake'
 " Plug 'dense-analysis/ale'
-Plug 'jiangmiao/auto-pairs'
-Plug 'alvan/vim-closetag'
+"Plug 'jiangmiao/auto-pairs'
+"Plug 'alvan/vim-closetag'
 
 "Appearance
 Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
-Plug 'kristijanhusak/vim-hybrid-material'
-Plug 'skielbasa/vim-material-monokai'
-Plug 'flazz/vim-colorschemes'
-Plug 'hzchirs/vim-material'
-Plug 'zcodes/vim-colors-basic'
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-rhubarb'
+Plug 'airblade/vim-gitgutter'
 Plug 'ryanoasis/vim-devicons'
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
-Plug 'lifepillar/vim-solarized8'
-Plug 'kristijanhusak/vim-hybrid-material'
-Plug 'mkarmona/colorsbox'
-Plug 'edkolev/tmuxline.vim'
+
+"Plug 'kristijanhusak/vim-hybrid-material'
+"Plug 'skielbasa/vim-material-monokai'
+"Plug 'flazz/vim-colorschemes'
+"Plug 'hzchirs/vim-material'
+"Plug 'zcodes/vim-colors-basic'
+"Plug 'vim-airline/vim-airline'
+"Plug 'vim-airline/vim-airline-themes'
+"Plug 'lifepillar/vim-solarized8'
+"Plug 'kristijanhusak/vim-hybrid-material'
+"Plug 'mkarmona/colorsbox'
+"Plug 'edkolev/tmuxline.vim'
 Plug 'Rigellute/rigel'
 "Misc
 " Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-eunuch'
 Plug 'scrooloose/nerdcommenter'
 Plug 'ervandew/supertab'
-" Plug 'airblade/vim-gitgutter'
 
 " Plug 'bfredl/nvim-ipy'
-Plug 'tpope/vim-eunuch'
 
 " All of your Plugins must be added before the following line
 call plug#end()            " required
@@ -163,9 +165,7 @@ filetype plugin indent on
 colorscheme rigel
 " colorscheme material-monokai
 
-highlight Search guibg=Grey40
 
-let g:easytags_async = 1
 
 
 " Toggle ; and , at the end of the line by douple tapping them
@@ -185,32 +185,36 @@ augroup myvimrc
 augroup END"
 " Vim Autocompletion Configuration
 
-let g:ycm_global_ycm_extra_conf = '~/.ycm_global_ycm_extra_conf'
-let g:ycm_rust_src_path = '/home/harry/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/src/'
-
 
 nnoremap <leader>b :ls<CR>:b<space>
 nnoremap <leader>' :s/"/'/g<CR>       
 nnoremap <leader>" :s/'/"/g<CR>
 nnoremap <leader>l :nohl<CR>
 
-nnoremap <leader>w :w<CR>
 
 " nnoremap <leader>f :find<space> 
 " nnoremap <leader>s :sfind<space>
 " nnoremap <leader>v :vert sfind<space>
+" Open current line in the browser
+
+nnoremap <Leader>gb :.Gbrowse<CR>
+
+" Open visual selection in the browser
+vnoremap <Leader>gb :Gbrowse<CR>
+
+
+nnoremap <leader>f :Files<CR>
+nnoremap <leader>F :GFiles?<CR>
+
 nnoremap <leader>G :grep!<space>
 nnoremap <leader>g :Find<CR>
-
-nnoremap <leader>t :Tags<CR>
-nnoremap <leader>T :BTags<CR>
 
 nnoremap <leader>h :History:<CR>
 nnoremap <leader>/ :BLines<CR>
 
 
-nnoremap <leader>f :Files<CR>
-nnoremap <leader>F :GFiles?<CR>
+nnoremap <leader>t :Tags<CR>
+nnoremap <leader>T :BTags<CR>
 
 " nnoremap <leader>te :tabedit<CR>
 " nnoremap <leader>t :ta<space>
@@ -219,7 +223,6 @@ nnoremap <leader>F :GFiles?<CR>
 " nnoremap <leader>tp :tp<CR>
 " nnoremap <leader>p :pop<CR>
 
-set path+=*/**
 
 nnoremap <leader>dt :diffget //2<CR>
 nnoremap <leader>dm :diffget //3<CR>
@@ -261,6 +264,20 @@ command! -bang -nargs=* Find call fzf#vim#grep('rg --column --line-number --no-h
 map <C-n> :NERDTreeToggle<CR>
 " let g:NERDTreeHijackNetrw=0
 
+" GoTo code navigation.
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
+nmap <leader>rn <Plug>(coc-rename)
+nmap <leader>qf  <Plug>(coc-fix-current)
+nmap <leader>ll  <Plug>(coc-codelens-action)
+
+
+inoremap <expr> <cr> coc#pum#visible() ? coc#pum#confirm() : "\<CR>"
+inoremap <silent><expr> <cr> coc#pum#visible() ? coc#_select_confirm() : "\<C-g>u\<CR>"
+
 let g:DevIconsEnableFolderPatternMatching = 1
 let g:WebDevIconsUnicodeDecorateFolderNodes = 1
 
@@ -269,11 +286,6 @@ let g:NERDSpaceDelims = 1
 
 set diffopt+=vertical
 
-" if has("autocmd")
-  " au BufReadPost *.rkt,*.rktl set filetype=racket
-  " au filetype racket set lisp
-  " au filetype racket set autoindent
-" endif
 
 
 " if exists('$TMUX') 
@@ -289,34 +301,22 @@ set diffopt+=vertical
 " au Syntax * RainbowParenthesesLoadBraces
 
 
-" let g:airline#extensions#ale#enabled = 1
+
+"let g:closetag_filenames = '*.html.eex, *.html.erb, *.html,*.xhtml,*.phtml'
 
 
 
-" let g:ycm_autoclose_preview_window_after_completion=1
-" map <leader>[  :YcmCompleter GoToDefinitionElseDeclaration<CR>
-
-let g:closetag_filenames = '*.html.eex, *.html.erb, *.html,*.xhtml,*.phtml'
 
 
-" nmap <silent> <leader>] <Plug>(ale_next_wrap)
+let g:go_doc_popup_window = 1
 
 
-let g:ycm_confirm_extra_conf = 0
-
-let g:nvim_ipy_perform_mappings = 0
-
-map <silent> <c-s> <Plug>(IPy-Run)
-map <silent> <c-d> <Plug>(IPy-RunCell)
-
-" let g:ale_lint_on_text_changed = 0
-" let g:ale_lint_on_save = 1
-
-" let g:ale_fixers = ['rubocop']
-" let g:ale_fix_on_save = 1
-
-" format with goimports instead of gofmt
 let g:go_fmt_command = "goimports"
+let g:go_def_mode = "gopls"
+let g:go_autodetect_gopath = 1
+
+let g:go_fmt_autosave = 1
+
 let g:go_highlight_build_constraints = 1
 let g:go_highlight_extra_types = 1
 let g:go_highlight_fields = 1
@@ -327,9 +327,6 @@ let g:go_highlight_structs = 1
 let g:go_highlight_types = 1
 let g:go_auto_sameids = 1
 let g:go_auto_type_info = 1
-
-" let g:ale_sign_error = '⤫'
-" let g:ale_sign_warning = '⚠'
 
 
 au FileType go nmap gl :GoDeclsDir<cr>
@@ -346,18 +343,8 @@ nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 
-runtime macros/matchit.vim
 
 map <c-x><c-j> <plug>(fzf-complete-file)
 imap <c-x><c-f> <plug>(fzf-complete-path)
 " inoremap <expr> <c-x><c-k> fzf#vim#complete('cat /usr/share/dict/words')
 
-" Disable netrw. ironically
-let loaded_netrwPlugin = 1
-" set synmaxcol=120
-" syntax sync minlines=512
-" set regexpengine=1
-let g:ruby_path="/Users/harry/.rvm/rubies/ruby-2.3.8/bin/ruby"
-
-
-set re=1
