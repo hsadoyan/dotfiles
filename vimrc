@@ -333,7 +333,7 @@ au FileType go nmap gl :GoDeclsDir<cr>
 
 
 " When writing a buffer (no delay).
-call neomake#configure#automake('w')
+" call neomake#configure#automake('w')
 
 set nobackup
 set nowritebackup

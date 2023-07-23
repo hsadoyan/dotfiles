@@ -1,9 +1,3 @@
-# Example aliases
-alias zshconfig="vim ~/.zshrc"
-alias zsrc="source ~/.zshrc"
-alias vim="nvim"
-
-alias rubymine="jetbrains-rubymine"
-alias chrome="google-chrome-stable"
-
 alias grep="rg"
+alias cat="bat"
+alias ls="exa"
