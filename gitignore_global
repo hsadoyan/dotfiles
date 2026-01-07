@@ -1,0 +1,30 @@
+# Ctags
+tags
+TAGS
+.tags
+
+# Vim/Neovim swap and backup files
+*.swp
+*.swo
+*.swn
+*~
+.netrwhist
+
+# Claude
+.claude/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor configs
+.idea/
+.vscode/
+*.sublime-workspace
+
+# Environment files
+.env.local
+.envrc
+
+# Direnv
+.direnv/

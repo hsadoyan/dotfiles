@@ -1,5 +1,3 @@
-" Use <F11> to toggle between 'paste' and 'nopaste'
-set pastetoggle=<F11>
 
 let mapleader = ","
  
@@ -152,7 +150,7 @@ Plug 'Rigellute/rigel'
 " Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-eunuch'
 Plug 'scrooloose/nerdcommenter'
-Plug 'ervandew/supertab'
+" Plug 'ervandew/supertab'
 
 " Plug 'bfredl/nvim-ipy'
 

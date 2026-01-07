@@ -1,0 +1,25 @@
+[init]
+	defaultBranch = main
+[fetch]
+	prune = true
+[user]
+	email = harrysadoyan@gmail.com
+	name = Harry Sadoyan
+[alias]
+	co = checkout
+	stat = status
+	unstage = reset HEAD --
+	last = log -1 HEAD
+	lg = log --oneline --graph --decorate
+	br = branch
+	ci = commit
+	st = status
+[core]
+	editor = nvim
+	excludesfile = $HOME/.gitignore_global
+[push]
+	autoSetupRemote = true
+[rerere]
+	enabled = true
+[diff]
+	colorMoved = zebra
