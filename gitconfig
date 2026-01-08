@@ -16,7 +16,6 @@
 	st = status
 [core]
 	editor = nvim
-	excludesfile = $HOME/.gitignore_global
 [push]
 	autoSetupRemote = true
 [rerere]

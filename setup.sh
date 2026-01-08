@@ -174,15 +174,24 @@ print_info "========== NEOVIM SETUP =========="
 
 create_dir ~/.config/nvim
 
-# Link vimrc
+# Link vimrc for vim
 if [ -f "$DOTFILES_DIR/vimrc" ]; then
     create_symlink "$DOTFILES_DIR/vimrc" ~/.vimrc
-    create_symlink "$DOTFILES_DIR/vimrc" ~/.config/nvim/init.vim
+    if [ "$DRY_RUN" = false ]; then
+        print_success "Vim configuration linked"
+    fi
+else
+    print_error "vimrc not found in $DOTFILES_DIR"
+fi
+
+# Link init.lua for neovim
+if [ -f "$DOTFILES_DIR/nvim/init.lua" ]; then
+    create_symlink "$DOTFILES_DIR/nvim/init.lua" ~/.config/nvim/init.lua
     if [ "$DRY_RUN" = false ]; then
         print_success "Neovim configuration linked"
     fi
 else
-    print_error "vimrc not found in $DOTFILES_DIR"
+    print_error "nvim/init.lua not found in $DOTFILES_DIR"
 fi
 
 # Set neovim as default editor
@@ -234,6 +243,8 @@ fi
 echo
 print_info "========== GIT CONFIGURATION =========="
 
+create_dir ~/.config/git
+
 if [ -f "$DOTFILES_DIR/gitconfig" ]; then
     create_symlink "$DOTFILES_DIR/gitconfig" ~/.gitconfig
     if [ "$DRY_RUN" = true ]; then
@@ -247,7 +258,7 @@ else
 fi
 
 if [ -f "$DOTFILES_DIR/gitignore_global" ]; then
-    create_symlink "$DOTFILES_DIR/gitignore_global" ~/.gitignore_global
+    create_symlink "$DOTFILES_DIR/gitignore_global" ~/.config/git/ignore
     if [ "$DRY_RUN" = false ]; then
         print_success "Global gitignore linked"
     fi
