@@ -1,24 +1,32 @@
 [init]
-	defaultBranch = main
+  defaultBranch = main
 [fetch]
-	prune = true
+  prune = true
 [user]
-	email = harrysadoyan@gmail.com
-	name = Harry Sadoyan
+  email = harrysadoyan@gmail.com
+  name = Harry Sadoyan
 [alias]
-	co = checkout
-	stat = status
-	unstage = reset HEAD --
-	last = log -1 HEAD
-	lg = log --oneline --graph --decorate
-	br = branch
-	ci = commit
-	st = status
+  co = checkout
+  stat = status
+  unstage = reset HEAD --
+  last = log -1 HEAD
+  lg = log --oneline --graph --decorate
+  br = branch
+  ci = commit
+  st = status
+  difft = difftool --tool=difft
 [core]
-	editor = nvim
+  editor = nvim
+  pager = delta
+
 [push]
-	autoSetupRemote = true
+  autoSetupRemote = true
 [rerere]
-	enabled = true
+  enabled = true
 [diff]
-	colorMoved = zebra
+  colorMoved = zebra
+[difftool "difft"]
+  cmd = difft "$LOCAL" "$REMOTE"
+
+[difftool]
+  prompt = false

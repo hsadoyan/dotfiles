@@ -16,5 +16,9 @@ fi
 source <(fzf --zsh)
 
 alias vim=nvim
+alias cat=bat
+alias ls=eza
+alias man=tldr
+alias top=bottom
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

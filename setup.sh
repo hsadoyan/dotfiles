@@ -108,29 +108,6 @@ create_dir() {
     fi
 }
 
-# Function to check package installation status
-check_packages() {
-    local packages=("$@")
-    local missing=()
-    local installed=()
-
-    for pkg in "${packages[@]}"; do
-        if pacman -Qi "$pkg" &> /dev/null; then
-            installed+=("$pkg")
-        else
-            missing+=("$pkg")
-        fi
-    done
-
-    if [ ${#installed[@]} -gt 0 ]; then
-        echo -e "  ${GREEN}Already installed:${NC} ${installed[*]}"
-    fi
-
-    if [ ${#missing[@]} -gt 0 ]; then
-        echo -e "  ${YELLOW}Would install:${NC} ${missing[*]}"
-    fi
-}
-
 # Update system
 print_info "System update..."
 if [ "$DRY_RUN" = true ]; then
@@ -140,32 +117,12 @@ else
     print_success "System updated"
 fi
 
-# Install base packages
-print_info "Base packages installation..."
-BASE_PACKAGES=(
-    base-devel
-    git
-    curl
-    wget
-    zsh
-    neovim
-    tmux
-    fzf
-    ripgrep
-    fd
-    bat
-    nodejs
-    npm
-    python
-    python-pip
-)
-
+# Install packages using subscript
+print_info "Running package installation script..."
 if [ "$DRY_RUN" = true ]; then
-    print_dry_run "Would install base packages"
-    check_packages "${BASE_PACKAGES[@]}"
+    bash "$DOTFILES_DIR/install_packages.sh" "true"
 else
-    sudo pacman -S --needed --noconfirm "${BASE_PACKAGES[@]}"
-    print_success "Base packages installed"
+    bash "$DOTFILES_DIR/install_packages.sh" "false"
 fi
 
 # ---------- NEOVIM SETUP ----------
@@ -338,18 +295,6 @@ else
     fi
 fi
 
-# ---------- POWERLINE SETUP ----------
-echo
-print_info "========== POWERLINE =========="
-
-POWERLINE_PACKAGES=(powerline powerline-fonts)
-if [ "$DRY_RUN" = true ]; then
-    check_packages "${POWERLINE_PACKAGES[@]}"
-else
-    sudo pacman -S --needed --noconfirm "${POWERLINE_PACKAGES[@]}"
-    print_success "Powerline installed"
-fi
-
 # ---------- NERD FONTS INSTALLATION ----------
 echo
 print_info "========== DEJAVU NERD FONT =========="
@@ -504,7 +449,7 @@ echo "  • Tmux configuration"
 echo "  • Paru (AUR helper)"
 echo "  • Powerline"
 echo "  • DejaVu Nerd Font"
-echo "  • fzf, ripgrep, fd, bat, and other CLI tools"
+echo "  • Modern CLI tools: fzf, ripgrep, fd, bat, eza, bottom, tldr"
 if [[ $INSTALL_SWAY =~ ^[Yy]$ ]]; then
     echo "  • Sway and Waybar"
 fi
