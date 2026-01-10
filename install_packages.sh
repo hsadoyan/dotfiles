@@ -71,6 +71,7 @@ BASE_PACKAGES=(
     eza
     tldr
     bottom
+    yazi
     wl-clipboard
     nodejs
     npm

@@ -1,0 +1,15 @@
+[manager]
+# Show hidden files by default (can be toggled with 'zh' keybind)
+show_hidden = false
+
+# Always hide these directories even when showing hidden files
+# This uses gitignore-style patterns
+show_symlink = true
+
+[plugin]
+
+[opener]
+
+[open]
+
+[tasks]

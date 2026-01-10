@@ -1,0 +1,3 @@
+# Always ignore these patterns even when showing hidden files
+.git/
+node_modules/

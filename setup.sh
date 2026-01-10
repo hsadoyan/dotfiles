@@ -268,6 +268,60 @@ else
     print_warning "tmux.conf not found in $DOTFILES_DIR"
 fi
 
+# ---------- KITTY SETUP ----------
+echo
+print_info "========== KITTY TERMINAL =========="
+
+if [ "$DRY_RUN" = true ]; then
+    print_dry_run "Would install: kitty"
+    if command_exists kitty; then
+        echo -e "  ${GREEN}kitty is already installed${NC}"
+    fi
+else
+    if command_exists kitty; then
+        print_success "kitty is already installed"
+    else
+        sudo pacman -S --needed --noconfirm kitty
+        print_success "kitty installed"
+    fi
+fi
+
+# Link kitty config
+create_dir ~/.config/kitty
+
+if [ -f "$DOTFILES_DIR/kitty.conf" ]; then
+    create_symlink "$DOTFILES_DIR/kitty.conf" ~/.config/kitty/kitty.conf
+    if [ "$DRY_RUN" = false ]; then
+        print_success "Kitty configuration linked"
+    fi
+else
+    print_warning "kitty.conf not found in $DOTFILES_DIR"
+fi
+
+# ---------- YAZI SETUP ----------
+echo
+print_info "========== YAZI FILE MANAGER =========="
+
+create_dir ~/.config/yazi
+
+if [ -f "$DOTFILES_DIR/yazi/yazi.toml" ]; then
+    create_symlink "$DOTFILES_DIR/yazi/yazi.toml" ~/.config/yazi/yazi.toml
+    if [ "$DRY_RUN" = false ]; then
+        print_success "Yazi config linked"
+    fi
+else
+    print_warning "yazi/yazi.toml not found in $DOTFILES_DIR"
+fi
+
+if [ -f "$DOTFILES_DIR/yazi/.yaziignore" ]; then
+    create_symlink "$DOTFILES_DIR/yazi/.yaziignore" ~/.config/yazi/.yaziignore
+    if [ "$DRY_RUN" = false ]; then
+        print_success "Yazi ignore file linked"
+    fi
+else
+    print_warning "yazi/.yaziignore not found in $DOTFILES_DIR"
+fi
+
 # ---------- PARU INSTALLATION ----------
 echo
 print_info "========== PARU (AUR HELPER) =========="
@@ -339,7 +393,7 @@ if [ "$DRY_RUN" = true ]; then
     print_dry_run "Would prompt: Do you want to install Sway and Waybar? (y/n)"
     echo -e "  ${CYAN}If yes, would install:${NC}"
     echo "    - sway, waybar, swaybg, swaylock, swayidle"
-    echo "    - wofi (launcher), kitty (terminal)"
+    echo "    - wofi (launcher)"
     echo "    - grim, slurp (screenshots)"
     echo "    - wl-clipboard, brightnessctl"
     echo "    - pulseaudio, pavucontrol"
@@ -370,7 +424,6 @@ else
             swaylock \
             swayidle \
             wofi \
-            kitty \
             grim \
             slurp \
             wl-clipboard \
@@ -446,6 +499,8 @@ echo "  • Neovim with vim-plug and plugins"
 echo "  • Git configuration"
 echo "  • Zsh as default shell"
 echo "  • Tmux configuration"
+echo "  • Kitty terminal"
+echo "  • Yazi file manager"
 echo "  • Paru (AUR helper)"
 echo "  • Powerline"
 echo "  • DejaVu Nerd Font"
