@@ -79,6 +79,7 @@ BASE_PACKAGES=(
     python-pip
     difftastic
     git-delta
+    tree-sitter-cli
 )
 
 # Define powerline packages
