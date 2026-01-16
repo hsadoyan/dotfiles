@@ -46,6 +46,7 @@ opt.ruler = true
 opt.confirm = true
 opt.mouse = "a"
 opt.updatetime = 250
+opt.timeoutlen = 400
 opt.completeopt = "menu,menuone,noselect"
 
 -- Behavior
@@ -131,6 +132,7 @@ require("lazy").setup({
   { "tpope/vim-unimpaired" },
   { "tpope/vim-surround" },
   { "tpope/vim-repeat" },
+
   {
     "numToStr/Comment.nvim",
     config = function() require("Comment").setup() end,
@@ -325,7 +327,10 @@ require("lazy").setup({
       { "<leader>cc", "<cmd>ClaudeCode<cr>", desc = "Toggle Claude Code" },
     },
   },
-
+  {
+    "OXY2DEV/markview.nvim",
+    lazy = false,
+  },
   -- Utilities
   { "tpope/vim-eunuch" },
 
@@ -531,7 +536,7 @@ keymap("n", "<leader>'", [[:s/"/'/g<CR>:noh<CR>]], opts)
 keymap("n", '<leader>"', [[:s/'/"/g<CR>:noh<CR>]], opts)
 
 -- FZF
-keymap("n", "<leader>f", ":Files<CR>", opts)
+keymap("n", "<leader>f", ":GFiles<CR>", opts)
 keymap("n", "<leader>F", ":GFiles?<CR>", opts)
 keymap("n", "<leader>g", ":Rg<CR>", opts)
 keymap("n", "<leader>G", ":grep!<space>", { noremap = true })
@@ -544,8 +549,6 @@ keymap("n", "<leader>T", ":BTags<CR>", opts)
 keymap("n", "<C-n>", ":NvimTreeToggle<CR>", opts)
 
 -- Git
-keymap("n", "<leader>gb", ":.GBrowse<CR>", opts)
-keymap("v", "<leader>gb", ":GBrowse<CR>", opts)
 keymap("n", "<leader>dt", ":diffget //2<CR>", opts)
 keymap("n", "<leader>dm", ":diffget //3<CR>", opts)
 keymap("n", "<leader>du", ":diffupdate<CR>", opts)
@@ -560,6 +563,9 @@ keymap("n", "<leader>hp", ":Gitsigns preview_hunk<CR>", opts)
 -- ==========================================================================
 -- FZF COMMANDS
 -- ==========================================================================
+
+-- Use fd for file finding (faster than default find)
+vim.env.FZF_DEFAULT_COMMAND = 'fd --type f --hidden --follow --exclude .git'
 
 vim.cmd([[
   command! -bang -nargs=* Rg
