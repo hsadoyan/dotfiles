@@ -84,7 +84,7 @@
     },
 
     "pulseaudio": {
-        "format": "{icon} {volume}%",
+        "format": "{icon}",
         "format-muted": "󰝟",
         "format-icons": {
             "default": ["󰕿", "󰖀", "󰕾"]
@@ -94,7 +94,8 @@
     },
 
     "backlight": {
-        "format": "󰃟 {percent}%",
+        "format": "{icon}",
+        "format-icons": ["󰃞", "󰃟", "󰃠"],
         "tooltip-format": "Brightness: {percent}%"
     },
 
@@ -102,13 +103,13 @@
         "tooltip": false,
         "format": "{icon}",
         "format-icons": {
-            "notification": "󱅫",
+            "notification": "󰂚<span foreground='red'><sup></sup></span>",
             "none": "󰂚",
-            "dnd-notification": "󰂛",
+            "dnd-notification": "󰂛<span foreground='red'><sup></sup></span>",
             "dnd-none": "󰂛",
-            "inhibited-notification": "󱅫",
+            "inhibited-notification": "󰂚<span foreground='red'><sup></sup></span>",
             "inhibited-none": "󰂚",
-            "dnd-inhibited-notification": "󰂛",
+            "dnd-inhibited-notification": "󰂛<span foreground='red'><sup></sup></span>",
             "dnd-inhibited-none": "󰂛"
         },
         "return-type": "json",

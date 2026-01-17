@@ -22,7 +22,7 @@ set $menu wofi --show drun
 ### Output configuration
 #
 # Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
-output * bg ~/Pictures/wallpaper.png fill scale 1.5
+output * bg ~/Pictures/Wallpaper/wallpaper.png fill scale 1.5
 #
 # Example configuration:
 #
@@ -218,6 +218,12 @@ bindsym $mod+r mode "resize"
 
     # Screenshot region to clipboard
     bindsym $mod+Shift+s exec grim -g "$(slurp)" - | wl-copy
+
+    # Screen recording - select region
+    bindsym $mod+Shift+r exec wf-recorder -g "$(slurp)" -f ~/Videos/$(date +'%Y%m%d_%H%M%S').mp4
+
+    # Stop screen recording
+    bindsym $mod+Control+r exec killall -s SIGINT wf-recorder
 #
 # Status Bar:
 #
@@ -237,8 +243,9 @@ input type:keyboard {
 
 exec_always nm-applet --indicator
 exec_always nmcli networking on
-
+exec swaync
 
 default_border pixel 2
 default_floating_border pixel 2
 
+exec eval $(gnome-keyring-daemon --start --components=secrets,pkcs11)

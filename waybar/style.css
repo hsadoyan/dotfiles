@@ -39,6 +39,7 @@ tooltip label {
 #pulseaudio,
 #backlight,
 #custom-notification {
+    font-size: 13px;
     padding: 2px 16px;
     margin: 1px 3px;
     border-radius: 20px;
