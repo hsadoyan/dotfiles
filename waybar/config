@@ -15,10 +15,10 @@
         "clock"
     ],
     "modules-right": [
-        "battery",
         "network",
         "pulseaudio",
         "backlight",
+        "battery",
         "custom/notification"
     ],
 
@@ -89,7 +89,7 @@
         "format-icons": {
             "default": ["󰕿", "󰖀", "󰕾"]
         },
-        "on-click": "pavucontrol",
+        "on-click": "pwvucontrol",
         "tooltip-format": "{desc}"
     },
 
