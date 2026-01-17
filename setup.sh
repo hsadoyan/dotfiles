@@ -404,10 +404,15 @@ if [ "$DRY_RUN" = true ]; then
     else
         echo -e "  ${YELLOW}sway_config not found${NC} in $DOTFILES_DIR"
     fi
-    if [ -f "$DOTFILES_DIR/waybar_config" ]; then
-        echo -e "  ${GREEN}waybar_config found${NC} - would link to ~/.config/waybar/config"
+    if [ -f "$DOTFILES_DIR/waybar/config" ]; then
+        echo -e "  ${GREEN}waybar/config found${NC} - would link to ~/.config/waybar/config"
     else
-        echo -e "  ${YELLOW}waybar_config not found${NC} in $DOTFILES_DIR"
+        echo -e "  ${YELLOW}waybar/config not found${NC} in $DOTFILES_DIR"
+    fi
+    if [ -f "$DOTFILES_DIR/waybar/style.css" ]; then
+        echo -e "  ${GREEN}waybar/style.css found${NC} - would link to ~/.config/waybar/style.css"
+    else
+        echo -e "  ${YELLOW}waybar/style.css not found${NC} in $DOTFILES_DIR"
     fi
     print_dry_run "Would create directory: ~/Pictures/Screenshots"
 else
@@ -448,11 +453,17 @@ else
         # Link waybar config
         print_info "Setting up Waybar configuration..."
         mkdir -p ~/.config/waybar
-        if [ -f "$DOTFILES_DIR/waybar_config" ]; then
-            ln -sf "$DOTFILES_DIR/waybar_config" ~/.config/waybar/config
+        if [ -f "$DOTFILES_DIR/waybar/config" ]; then
+            ln -sf "$DOTFILES_DIR/waybar/config" ~/.config/waybar/config
             print_success "Waybar configuration linked"
         else
-            print_warning "waybar_config not found in $DOTFILES_DIR"
+            print_warning "waybar/config not found in $DOTFILES_DIR"
+        fi
+        if [ -f "$DOTFILES_DIR/waybar/style.css" ]; then
+            ln -sf "$DOTFILES_DIR/waybar/style.css" ~/.config/waybar/style.css
+            print_success "Waybar style.css linked"
+        else
+            print_warning "waybar/style.css not found in $DOTFILES_DIR"
         fi
 
         # Create Screenshots directory for sway

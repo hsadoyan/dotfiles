@@ -80,6 +80,7 @@ BASE_PACKAGES=(
     difftastic
     git-delta
     tree-sitter-cli
+    brightnessctl
 )
 
 # Define powerline packages

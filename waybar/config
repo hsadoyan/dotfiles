@@ -1,0 +1,121 @@
+{
+    "layer": "top",
+    "position": "top",
+    "height": 40,
+    "spacing": 8,
+    "margin-top": 6,
+    "margin-left": 10,
+    "margin-right": 10,
+
+    "modules-left": [
+        "sway/workspaces",
+        "custom/ghost"
+    ],
+    "modules-center": [
+        "clock"
+    ],
+    "modules-right": [
+        "battery",
+        "network",
+        "pulseaudio",
+        "backlight",
+        "custom/notification"
+    ],
+
+    "sway/workspaces": {
+        "disable-scroll": false,
+        "all-outputs": true,
+        "format": "{icon}",
+        "format-icons": {
+            "1": "󰲠",
+            "2": "󰲢",
+            "3": "󰲤",
+            "4": "󰲦",
+            "5": "󰲨",
+            "6": "󰲪",
+            "7": "󰲬",
+            "8": "󰲮",
+            "9": "󰲰",
+            "10": "󰿬",
+            "focused": "󰮯",
+            "default": "●"
+        }
+    },
+
+    "custom/ghost": {
+        "format": "󰊠",
+        "tooltip": false
+    },
+
+    "clock": {
+        "format": "{:%I:%M:%S %p}",
+        "format-alt": "{:%A, %B %d, %Y}",
+        "interval": 1,
+        "tooltip-format": "<tt><big>{:%B %Y}</big>\n\n{calendar}</tt>",
+        "calendar": {
+            "format": {
+                "today": "<span color='#ff6b6b'><b>{}</b></span>"
+            }
+        }
+    },
+
+    "battery": {
+        "interval": 5,
+        "states": {
+            "warning": 30,
+            "critical": 15
+        },
+        "format": "{icon}  {capacity}%",
+        "format-charging": "󰂄 {capacity}%",
+        "format-plugged": "󰚥 {capacity}%",
+        "format-icons": ["󰂎", "󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"],
+        "tooltip-format": "{timeTo} | {power}W"
+    },
+
+    "network": {
+        "interval": 2,
+        "format-wifi": "{icon}  {essid}",
+        "format-icons": ["󰤯", "󰤟", "󰤢", "󰤥", "󰤨"],
+        "format-ethernet": "󰈀  {ipaddr}/{cidr}",
+        "format-disconnected": "󰤭  Disconnected",
+        "tooltip-format-wifi": "{ifname}: {ipaddr}\nSignal: {signalStrength}%\nFrequency: {frequency}MHz\nUp: {bandwidthUpBytes} Down: {bandwidthDownBytes}",
+        "tooltip-format-ethernet": "{ifname}: {ipaddr}/{cidr}",
+        "max-length": 50
+    },
+
+    "pulseaudio": {
+        "format": "{icon} {volume}%",
+        "format-muted": "󰝟",
+        "format-icons": {
+            "default": ["󰕿", "󰖀", "󰕾"]
+        },
+        "on-click": "pavucontrol",
+        "tooltip-format": "{desc}"
+    },
+
+    "backlight": {
+        "format": "󰃟 {percent}%",
+        "tooltip-format": "Brightness: {percent}%"
+    },
+
+    "custom/notification": {
+        "tooltip": false,
+        "format": "{icon}",
+        "format-icons": {
+            "notification": "󱅫",
+            "none": "󰂚",
+            "dnd-notification": "󰂛",
+            "dnd-none": "󰂛",
+            "inhibited-notification": "󱅫",
+            "inhibited-none": "󰂚",
+            "dnd-inhibited-notification": "󰂛",
+            "dnd-inhibited-none": "󰂛"
+        },
+        "return-type": "json",
+        "exec-if": "which swaync-client",
+        "exec": "swaync-client -swb",
+        "on-click": "swaync-client -t -sw",
+        "on-click-right": "swaync-client -d -sw",
+        "escape": true
+    }
+}

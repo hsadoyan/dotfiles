@@ -536,7 +536,7 @@ keymap("n", "<leader>'", [[:s/"/'/g<CR>:noh<CR>]], opts)
 keymap("n", '<leader>"', [[:s/'/"/g<CR>:noh<CR>]], opts)
 
 -- FZF
-keymap("n", "<leader>f", ":GFiles<CR>", opts)
+keymap("n", "<leader>f", ":Files<CR>", opts)
 keymap("n", "<leader>F", ":GFiles?<CR>", opts)
 keymap("n", "<leader>g", ":Rg<CR>", opts)
 keymap("n", "<leader>G", ":grep!<space>", { noremap = true })
