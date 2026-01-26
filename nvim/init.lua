@@ -216,6 +216,32 @@ require("lazy").setup({
     end,
   },
 
+  -- Go tooling
+  {
+    "ray-x/go.nvim",
+    dependencies = {
+      "ray-x/guihua.lua",
+      "neovim/nvim-lspconfig",
+      "nvim-treesitter/nvim-treesitter",
+    },
+    config = function()
+      require("go").setup({
+        -- Disable features handled by gopls
+        lsp_cfg = false,  -- We configure gopls directly
+        lsp_keymaps = false,  -- We have our own keymaps
+        lsp_inlay_hints = { enable = false },  -- Handled by native LSP
+        -- Enable useful features
+        lsp_codelens = true,
+        diagnostic = false,  -- Use native diagnostics
+        trouble = false,  -- Don't use trouble
+        luasnip = true,  -- Integrate with our snippet engine
+      })
+    end,
+    event = { "CmdlineEnter" },
+    ft = { "go", "gomod" },
+    build = ':lua require("go.install").update_all_sync()',
+  },
+
   -- Elixir (handles ElixirLS automatically)
   {
     "elixir-tools/elixir-tools.nvim",
@@ -363,30 +389,32 @@ vim.api.nvim_create_autocmd("FileType", {
 -- Diagnostic display settings
 vim.diagnostic.config({
   virtual_text = { prefix = "●" },
-  signs = true,
+  signs = {
+    text = {
+      [vim.diagnostic.severity.ERROR] = "✘",
+      [vim.diagnostic.severity.WARN] = "▲",
+      [vim.diagnostic.severity.HINT] = "󰎞",
+      [vim.diagnostic.severity.INFO] = "",
+    },
+  },
   underline = true,
   update_in_insert = false,
   severity_sort = true,
   float = { border = "rounded" },
 })
 
--- Diagnostic signs
-local signs = { Error = " ", Warn = " ", Hint = " ", Info = " " }
-for type, icon in pairs(signs) do
-  local hl = "DiagnosticSign" .. type
-  vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
-end
-
 -- LSP keymaps on attach
 vim.api.nvim_create_autocmd("LspAttach", {
   callback = function(args)
     local bufnr = args.buf
+    local client = vim.lsp.get_client_by_id(args.data.client_id)
     local opts = { noremap = true, silent = true, buffer = bufnr }
 
     -- Navigation (some are defaults in 0.11, but explicit is nice)
     vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
     vim.keymap.set("n", "gD", vim.lsp.buf.declaration, opts)
     vim.keymap.set("n", "gy", vim.lsp.buf.type_definition, opts)
+    vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
 
     -- 0.11 defaults: grr=references, gri=implementation, grn=rename, gra=code_action
     -- Adding our preferred mappings too
@@ -395,6 +423,24 @@ vim.api.nvim_create_autocmd("LspAttach", {
     vim.keymap.set("n", "<leader>qf", vim.lsp.buf.code_action, opts)
     vim.keymap.set("n", "<leader>e", vim.diagnostic.open_float, opts)
     vim.keymap.set("n", "<leader>fm", function() vim.lsp.buf.format({ async = true }) end, opts)
+
+    -- Enable inlay hints if supported (Neovim 0.10+)
+    if client and client.server_capabilities.inlayHintProvider and vim.lsp.inlay_hint then
+      vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
+      vim.keymap.set("n", "<leader>ih", function()
+        vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = bufnr }), { bufnr = bufnr })
+      end, { buffer = bufnr, desc = "Toggle inlay hints" })
+    end
+
+    -- Go-specific keymaps
+    if client and client.name == "gopls" then
+      vim.keymap.set("n", "<leader>gi", function()
+        -- Organize imports
+        local params = vim.lsp.util.make_range_params()
+        params.context = { only = { "source.organizeImports" } }
+        vim.lsp.buf.code_action(params)
+      end, { buffer = bufnr, desc = "Organize imports" })
+    end
   end,
 })
 
@@ -402,6 +448,30 @@ vim.api.nvim_create_autocmd("LspAttach", {
 vim.api.nvim_create_autocmd("BufWritePre", {
   pattern = { "*.ex", "*.exs", "*.heex" },
   callback = function()
+    vim.lsp.buf.format({ async = false })
+  end,
+})
+
+-- Format and organize imports for Go on save
+vim.api.nvim_create_autocmd("BufWritePre", {
+  pattern = "*.go",
+  callback = function()
+    -- Organize imports
+    local params = vim.lsp.util.make_range_params()
+    params.context = { only = { "source.organizeImports" } }
+    local result = vim.lsp.buf_request_sync(0, "textDocument/codeAction", params, 3000)
+    if result then
+      for _, res in pairs(result) do
+        for _, action in pairs(res.result or {}) do
+          if action.edit then
+            vim.lsp.util.apply_workspace_edit(action.edit, "utf-8")
+          elseif action.command then
+            vim.lsp.buf.execute_command(action.command)
+          end
+        end
+      end
+    end
+    -- Format
     vim.lsp.buf.format({ async = false })
   end,
 })
@@ -425,9 +495,44 @@ vim.lsp.config("gopls", {
   root_markers = { "go.mod", "go.work", ".git" },
   settings = {
     gopls = {
-      analyses = { unusedparams = true, shadow = true },
+      -- Code analysis
+      analyses = {
+        unusedparams = true,
+        shadow = true,
+        unusedwrite = true,
+        useany = true,
+        nilness = true,
+      },
+      -- Staticcheck for additional linting
       staticcheck = true,
+      -- Use gofumpt for stricter formatting
       gofumpt = true,
+      -- Semantic tokens for better highlighting
+      semanticTokens = true,
+      -- Code lenses for tests, references, etc.
+      codelenses = {
+        generate = true,
+        gc_details = true,
+        test = true,
+        tidy = true,
+        upgrade_dependency = true,
+        vendor = true,
+      },
+      -- Inlay hints
+      hints = {
+        assignVariableTypes = true,
+        compositeLiteralFields = true,
+        compositeLiteralTypes = true,
+        constantValues = true,
+        functionTypeParameters = true,
+        parameterNames = true,
+        rangeVariableTypes = true,
+      },
+      -- Better completion
+      usePlaceholders = true,
+      completeUnimported = true,
+      -- Diagnostics
+      diagnosticsDelay = "300ms",
     },
   },
 })
@@ -512,6 +617,23 @@ autocmd("FileType", {
     vim.opt_local.expandtab = false
     vim.opt_local.tabstop = 4
     vim.opt_local.shiftwidth = 4
+
+    -- Go-specific commands
+    vim.api.nvim_buf_create_user_command(0, "GoTest", function()
+      vim.cmd("!go test ./...")
+    end, { desc = "Run go test" })
+
+    vim.api.nvim_buf_create_user_command(0, "GoTestFunc", function()
+      vim.cmd("!go test -run %:t:r")
+    end, { desc = "Run test for current file" })
+
+    vim.api.nvim_buf_create_user_command(0, "GoBuild", function()
+      vim.cmd("!go build")
+    end, { desc = "Build go project" })
+
+    vim.api.nvim_buf_create_user_command(0, "GoRun", function()
+      vim.cmd("!go run %")
+    end, { desc = "Run current go file" })
   end,
 })
 
