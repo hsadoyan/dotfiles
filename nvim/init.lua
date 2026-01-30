@@ -533,6 +533,7 @@ vim.lsp.config("gopls", {
       completeUnimported = true,
       -- Diagnostics
       diagnosticsDelay = "300ms",
+      diagnosticsTrigger = "Save",  -- Only run diagnostics on save, not on every keystroke
     },
   },
 })
