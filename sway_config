@@ -19,6 +19,12 @@ set $term kitty
 
 set $menu wofi --show drun
 
+### Environment variables
+#
+# Qt platform theme - use qt5ct for theming
+exec systemctl --user import-environment QT_QPA_PLATFORMTHEME
+exec dbus-update-activation-environment --systemd QT_QPA_PLATFORMTHEME=qt5ct
+
 ### Output configuration
 #
 # Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
@@ -224,6 +230,11 @@ bindsym $mod+r mode "resize"
 
     # Stop screen recording
     bindsym $mod+Control+r exec killall -s SIGINT wf-recorder
+
+    # 1Password shortcuts
+    bindsym $mod+Shift+p exec 1password --quick-access
+    bindsym $mod+Shift+backslash exec 1password --show
+    bindsym $mod+Ctrl+l exec 1password --lock
 #
 # Status Bar:
 #
@@ -241,6 +252,7 @@ input type:keyboard {
 
 # Screenshot entire screen
 
+exec /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 exec_always nm-applet --indicator
 exec_always nmcli networking on
 exec swaync

@@ -3,7 +3,7 @@
    ============================================ */
 
 * {
-    font-family: "JetBrainsMono Nerd Font", "Font Awesome 6 Free", sans-serif;
+    font-family: "Hack Nerd Font", "Font Awesome 6 Free", sans-serif;
     font-size: 13px;
     font-weight: 600;
     min-height: 0;
@@ -36,8 +36,10 @@ tooltip label {
 #clock,
 #battery,
 #network,
+#bluetooth,
 #pulseaudio,
 #backlight,
+#tray,
 #custom-notification {
     font-size: 13px;
     padding: 2px 16px;
@@ -62,15 +64,15 @@ tooltip label {
 }
 
 #workspaces button {
-    /* padding: 2px 10px; */
+    padding: 2px 4px;
     margin: 0 2px;
     color: #cdd6f4;
     /* background: #3a3a4a; */
     /* border: none; */
     /* border-radius: 14px; */
-    font-size: 12px;
+    font-size: 10px;
     font-weight: 700;
-    /* min-width: 20px; */
+    min-width: 12px;
     transition: all 0.2s ease;
 }
 
@@ -205,6 +207,40 @@ tooltip label {
     border: 1px solid #3a3a4a;
 }
 
+/* Bluetooth */
+#bluetooth {
+    background: #2d2d3a;
+    color: #89dceb;
+    border: 1px solid #3a3a4a;
+}
+
+#bluetooth.disabled,
+#bluetooth.off {
+    color: #6c6c7e;
+    background: #252530;
+}
+
+#bluetooth.connected {
+    color: #89dceb;
+    background: #2d3a3d;
+}
+
+/* System Tray */
+#tray {
+    background: #2d2d3a;
+    border: 1px solid #3a3a4a;
+    padding: 2px 10px;
+}
+
+#tray > .passive {
+    -gtk-icon-effect: dim;
+}
+
+#tray > .needs-attention {
+    -gtk-icon-effect: highlight;
+    background-color: #f38ba8;
+}
+
 /* Notification (swaync) */
 #custom-notification {
     background: #2d2d3a;
@@ -224,7 +260,9 @@ tooltip label {
 
 #battery:hover,
 #pulseaudio:hover,
-#backlight:hover {
+#backlight:hover,
+#bluetooth:hover,
+#tray:hover {
     background: #3a3a4a;
 }
 

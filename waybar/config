@@ -16,9 +16,11 @@
     ],
     "modules-right": [
         "network",
+        "bluetooth",
         "pulseaudio",
         "backlight",
         "battery",
+        "tray",
         "custom/notification"
     ],
 
@@ -80,7 +82,24 @@
         "format-disconnected": "󰤭  Disconnected",
         "tooltip-format-wifi": "{ifname}: {ipaddr}\nSignal: {signalStrength}%\nFrequency: {frequency}MHz\nUp: {bandwidthUpBytes} Down: {bandwidthDownBytes}",
         "tooltip-format-ethernet": "{ifname}: {ipaddr}/{cidr}",
-        "max-length": 50
+        "max-length": 50,
+        "on-click": "nm-connection-editor"
+    },
+
+    "bluetooth": {
+        "format": "󰂯",
+        "format-disabled": "󰂲",
+        "format-off": "󰂲",
+        "format-connected": "󰂱 {num_connections}",
+        "tooltip-format": "{controller_alias}\t{controller_address}",
+        "tooltip-format-connected": "{controller_alias}\t{controller_address}\n\n{device_enumerate}",
+        "tooltip-format-enumerate-connected": "{device_alias}\t{device_address}",
+        "on-click": "blueman-manager"
+    },
+
+    "tray": {
+        "icon-size": 16,
+        "spacing": 8
     },
 
     "pulseaudio": {

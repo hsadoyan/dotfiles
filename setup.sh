@@ -322,6 +322,30 @@ else
     print_warning "yazi/.yaziignore not found in $DOTFILES_DIR"
 fi
 
+# ---------- WOFI SETUP ----------
+echo
+print_info "========== WOFI LAUNCHER =========="
+
+create_dir ~/.config/wofi
+
+if [ -f "$DOTFILES_DIR/wofi/config" ]; then
+    create_symlink "$DOTFILES_DIR/wofi/config" ~/.config/wofi/config
+    if [ "$DRY_RUN" = false ]; then
+        print_success "Wofi config linked"
+    fi
+else
+    print_warning "wofi/config not found in $DOTFILES_DIR"
+fi
+
+if [ -f "$DOTFILES_DIR/wofi/style.css" ]; then
+    create_symlink "$DOTFILES_DIR/wofi/style.css" ~/.config/wofi/style.css
+    if [ "$DRY_RUN" = false ]; then
+        print_success "Wofi style linked"
+    fi
+else
+    print_warning "wofi/style.css not found in $DOTFILES_DIR"
+fi
+
 # ---------- PARU INSTALLATION ----------
 echo
 print_info "========== PARU (AUR HELPER) =========="
@@ -354,20 +378,38 @@ echo
 print_info "========== DEJAVU NERD FONT =========="
 
 if [ "$DRY_RUN" = true ]; then
-    print_dry_run "Would install: ttf-dejavu-nerd (from AUR)"
+    print_dry_run "Would install: ttf-dejavu-nerd ttf-hack-nerd (from AUR)"
     if fc-list | grep -qi "DejaVu.*Nerd"; then
         echo -e "  ${GREEN}DejaVu Nerd Font appears to be already installed${NC}"
+    fi
+    if fc-list | grep -qi "Hack.*Nerd"; then
+        echo -e "  ${GREEN}Hack Nerd Font appears to be already installed${NC}"
     fi
     print_dry_run "Would run: fc-cache -fv (update font cache)"
 else
     if command_exists paru; then
-        paru -S --needed --noconfirm ttf-dejavu-nerd
+        paru -S --needed --noconfirm ttf-dejavu-nerd ttf-hack-nerd
         fc-cache -fv
-        print_success "DejaVu Nerd Font installed"
-        print_info "Configure it in your terminal settings"
+        print_success "Nerd Fonts installed (DejaVu, Hack)"
+        print_info "Configure them in your terminal and theme settings"
     else
         print_warning "Paru not available, skipping nerd font installation"
     fi
+fi
+
+# ---------- PAPIRUS ICON THEME ----------
+echo
+print_info "========== PAPIRUS ICON THEME =========="
+
+if [ "$DRY_RUN" = true ]; then
+    print_dry_run "Would install: papirus-icon-theme (from repos)"
+    if [ -d /usr/share/icons/Papirus ]; then
+        echo -e "  ${GREEN}Papirus icon theme appears to be already installed${NC}"
+    fi
+else
+    sudo pacman -S --needed --noconfirm papirus-icon-theme
+    print_success "Papirus icon theme installed"
+    print_info "Configure via nwg-look (GTK) or qt5ct (Qt)"
 fi
 
 # ---------- FZF SETUP ----------
@@ -396,8 +438,11 @@ if [ "$DRY_RUN" = true ]; then
     echo "    - wofi (launcher)"
     echo "    - grim, slurp (screenshots)"
     echo "    - wl-clipboard, brightnessctl"
-    echo "    - pulseaudio, pavucontrol"
+    echo "    - pulseaudio, pavucontrol, pwvucontrol"
     echo "    - network-manager-applet, blueman"
+    echo "    - wdisplays (display configuration)"
+    echo "    - nwg-look (GTK theme manager)"
+    echo "    - qt5ct, qt6ct (Qt theme configuration)"
     echo
     if [ -f "$DOTFILES_DIR/sway_config" ]; then
         echo -e "  ${GREEN}sway_config found${NC} - would link to ~/.config/sway/config"
@@ -436,9 +481,21 @@ else
             pulseaudio \
             pavucontrol \
             network-manager-applet \
-            blueman
+            blueman \
+            qt5ct \
+            qt6ct
 
         print_success "Sway and Waybar installed"
+
+        # Install AUR packages for Wayland settings
+        if command_exists paru; then
+            print_info "Installing Wayland-specific settings tools from AUR..."
+            paru -S --needed --noconfirm wdisplays nwg-look pwvucontrol
+            print_success "Wayland settings tools installed"
+        else
+            print_warning "Paru not yet available, skipping AUR packages (wdisplays, nwg-look, pwvucontrol)"
+            print_info "Run 'paru -S wdisplays nwg-look pwvucontrol' after setup completes"
+        fi
 
         # Link sway config
         print_info "Setting up Sway configuration..."
@@ -514,10 +571,12 @@ echo "  • Kitty terminal"
 echo "  • Yazi file manager"
 echo "  • Paru (AUR helper)"
 echo "  • Powerline"
-echo "  • DejaVu Nerd Font"
+echo "  • Nerd Fonts (DejaVu, Hack)"
+echo "  • Papirus icon theme"
 echo "  • Modern CLI tools: fzf, ripgrep, fd, bat, eza, bottom, tldr"
 if [[ $INSTALL_SWAY =~ ^[Yy]$ ]]; then
     echo "  • Sway and Waybar"
+    echo "  • Wayland settings tools: wdisplays, nwg-look, qt5ct/qt6ct, pwvucontrol"
 fi
 echo
 
