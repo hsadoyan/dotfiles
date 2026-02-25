@@ -8,7 +8,7 @@
 [alias]
   co = checkout
   stat = status
-  unstage = reset HEAD --
+  unstage = reset HEAD~1
   last = log -1 HEAD
   lg = log --oneline --graph --decorate
   br = branch
