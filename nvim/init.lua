@@ -242,28 +242,6 @@ require("lazy").setup({
     build = ':lua require("go.install").update_all_sync()',
   },
 
-  -- Elixir (handles ElixirLS automatically)
-  {
-    "elixir-tools/elixir-tools.nvim",
-    version = "*",
-    event = { "BufReadPre", "BufNewFile" },
-    dependencies = { "nvim-lua/plenary.nvim" },
-    config = function()
-      require("elixir").setup({
-        nextls = { enable = false },
-        elixirls = {
-          enable = true,
-          settings = require("elixir.elixirls").settings({
-            dialyzerEnabled = true,
-            enableTestLenses = false,
-            fetchDeps = false,
-          }),
-        },
-        projectionist = { enable = true },
-      })
-    end,
-  },
-
   -- Completion
   {
     "hrsh7th/nvim-cmp",
@@ -357,6 +335,12 @@ require("lazy").setup({
     "OXY2DEV/markview.nvim",
     lazy = false,
   },
+  -- Output panel (useful for reading Expert/LSP logs, alternative to :LspLog)
+  {
+    "mhanberg/output-panel.nvim",
+    cmd = "OutputPanel",
+  },
+
   -- Utilities
   { "tpope/vim-eunuch" },
 
@@ -572,8 +556,18 @@ vim.lsp.config("lua_ls", {
   },
 })
 
+-- Elixir (Expert LSP)
+vim.lsp.config("expert", {
+  settings = {
+    workspaceSymbols = {
+      -- Return results on empty query (default is 2 chars); nicer for symbol browsing
+      minQueryLength = 0,
+    },
+  },
+})
+
 -- Enable all configured LSP servers
-vim.lsp.enable({ "gopls", "pyright", "lua_ls" })
+vim.lsp.enable({ "gopls", "pyright", "lua_ls", "expert" })
 
 -- ==========================================================================
 -- AUTOCOMMANDS
@@ -703,7 +697,7 @@ vim.cmd([[
 -- Language servers to install:
 --   Go:     go install golang.org/x/tools/gopls@latest
 --   Python: pip install pyright
---   Lua:    brew install lua-language-server
---   Elixir: Automatic via elixir-tools.nvim!
+--   Lua:    sudo pacman -S lua-language-server
+--   Elixir: paru -S expert-git  (handled by install_packages.sh)
 --
 -- Just open Neovim - lazy.nvim installs everything automatically.

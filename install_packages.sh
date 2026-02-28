@@ -109,3 +109,17 @@ else
     sudo pacman -S --needed --noconfirm "${POWERLINE_PACKAGES[@]}"
     print_success "Powerline packages installed"
 fi
+
+# Install AUR packages (requires paru)
+echo
+print_info "AUR packages installation..."
+if [ "$DRY_RUN" = "true" ]; then
+    print_dry_run "Would install AUR packages: expert-git"
+else
+    if command -v paru &> /dev/null; then
+        paru -S --needed --noconfirm expert-git
+        print_success "AUR packages installed"
+    else
+        print_error "paru not found, skipping AUR packages (expert-git). Install paru first and re-run."
+    fi
+fi

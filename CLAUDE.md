@@ -56,7 +56,7 @@ pip install pyright
 # Lua
 sudo pacman -S lua-language-server
 
-# Elixir - managed automatically by elixir-tools.nvim plugin
+# Elixir - installed automatically via AUR (expert-git) by install_packages.sh
 ```
 
 ## Architecture
@@ -92,7 +92,7 @@ The Neovim config (`nvim/init.lua`) uses the modern Neovim 0.11+ API:
 - **LSP**: Native Neovim 0.11 LSP API with `vim.lsp.config()` and `vim.lsp.enable()`
   - No mason or lspconfig-style auto-installation
   - Explicit server configuration in the config file
-  - Configured servers: gopls, pyright, lua_ls, ElixirLS (via elixir-tools.nvim)
+  - Configured servers: gopls, pyright, lua_ls, expert (Expert LSP for Elixir)
 - **Treesitter**: Uses Neovim 0.11 native highlighting (`vim.treesitter.start()`)
   - Parser installation via nvim-treesitter plugin
   - Auto-installs parsers on first FileType encounter
