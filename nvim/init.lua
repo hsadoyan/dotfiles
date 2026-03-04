@@ -694,10 +694,10 @@ vim.cmd([[
 -- ==========================================================================
 -- INSTALL NOTES
 -- ==========================================================================
--- Language servers to install:
---   Go:     go install golang.org/x/tools/gopls@latest
---   Python: pip install pyright
---   Lua:    sudo pacman -S lua-language-server
---   Elixir: paru -S expert-git  (handled by install_packages.sh)
+-- Language servers (all handled by install_packages.sh):
+--   Go:     gopls (pacman)
+--   Python: pyright (pip --user)
+--   Lua:    lua-language-server (pacman)
+--   Elixir: expert-git (AUR/paru)
 --
 -- Just open Neovim - lazy.nvim installs everything automatically.

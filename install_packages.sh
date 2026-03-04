@@ -77,6 +77,9 @@ BASE_PACKAGES=(
     npm
     python
     python-pip
+    go
+    gopls
+    lua-language-server
     difftastic
     git-delta
     tree-sitter-cli
@@ -108,6 +111,16 @@ if [ "$DRY_RUN" = "true" ]; then
 else
     sudo pacman -S --needed --noconfirm "${POWERLINE_PACKAGES[@]}"
     print_success "Powerline packages installed"
+fi
+
+# Install Python LSP tools
+echo
+print_info "Python LSP tools installation..."
+if [ "$DRY_RUN" = "true" ]; then
+    print_dry_run "Would install: pyright (via pip)"
+else
+    pip install --user pyright
+    print_success "Python LSP tools installed"
 fi
 
 # Install AUR packages (requires paru)
