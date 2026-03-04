@@ -298,6 +298,18 @@ else
     print_warning "kitty.conf not found in $DOTFILES_DIR"
 fi
 
+# Install Cobalt2 theme via kitten themes
+if [ "$DRY_RUN" = true ]; then
+    print_dry_run "Would run: kitten themes --reload-in=all Cobalt2"
+else
+    if command_exists kitten; then
+        kitten themes --reload-in=all "Cobalt2"
+        print_success "Kitty theme set to Cobalt2"
+    else
+        print_warning "kitten not found, skipping theme setup (run 'kitten themes' manually after first launch)"
+    fi
+fi
+
 # ---------- YAZI SETUP ----------
 echo
 print_info "========== YAZI FILE MANAGER =========="
