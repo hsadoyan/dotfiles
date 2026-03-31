@@ -180,6 +180,9 @@ output * bg ~/Pictures/Wallpaper/wallpaper.png fill scale 1.5
     # Show the next scratchpad window or hide the focused scratchpad window.
     # If there are multiple scratchpad windows, this command cycles through them.
     bindsym $mod+minus scratchpad show
+
+    # Quick floating terminal (quake-style dropdown)
+    bindsym $mod+grave exec swaymsg '[app_id="floating_term"]' scratchpad show || exec $term --app-id floating_term
 #
 # Resizing containers:
 #
@@ -259,5 +262,14 @@ exec swaync
 
 default_border pixel 2
 default_floating_border pixel 2
+
+# Floating terminal rules
+for_window [app_id="floating_term"] {
+    floating enable
+    resize set 1200 700
+    move absolute position center
+    move scratchpad
+}
+exec $term --app-id floating_term -o remember_window_size=no -o initial_window_width=1200 -o initial_window_height=700
 
 exec eval $(gnome-keyring-daemon --start --components=secrets,pkcs11)

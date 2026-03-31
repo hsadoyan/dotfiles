@@ -1,0 +1,115 @@
+/* ============================================
+   SwayNC Style - Matches wofi theme
+   ============================================ */
+
+/* Override system CSS variables to match wofi palette */
+:root {
+    --cc-bg: #1e1e2e;
+    --noti-border-color: #89b4fa;
+    --noti-bg: 30, 30, 46;
+    --noti-bg-alpha: 1;
+    --noti-bg-darker: #181825;
+    --noti-bg-hover: #313244;
+    --noti-bg-focus: rgba(69, 71, 90, 0.6);
+    --noti-close-bg: #45475a;
+    --noti-close-bg-hover: #f38ba8;
+    --text-color: #cdd6f4;
+    --text-color-disabled: #6c7086;
+    --bg-selected: #89b4fa;
+    --border-radius: 10px;
+    --notification-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+@define-color cc-bg #1e1e2e;
+@define-color noti-border-color #89b4fa;
+@define-color noti-bg #1e1e2e;
+@define-color noti-bg-opaque #1e1e2e;
+@define-color noti-bg-darker #181825;
+@define-color noti-bg-hover #313244;
+@define-color noti-bg-hover-opaque #313244;
+@define-color noti-bg-focus rgba(69, 71, 90, 0.6);
+@define-color noti-close-bg #45475a;
+@define-color noti-close-bg-hover #f38ba8;
+@define-color text-color #cdd6f4;
+@define-color text-color-disabled #6c7086;
+@define-color bg-selected #89b4fa;
+
+/* ---- Global ---- */
+
+* {
+    font-family: "DejaVuSansM Nerd Font", monospace;
+}
+
+/* ---- Close button hover: pink accent ---- */
+
+.close-button:hover {
+    background: #f38ba8;
+    color: #1e1e2e;
+}
+
+/* ---- Notification border: blue accent like wofi window ---- */
+
+.notification-row .notification-background .notification {
+    border: 2px solid #89b4fa;
+}
+
+/* ---- Critical notification: red/pink border ---- */
+
+.notification-row .notification-background .notification.critical {
+    border: 2px solid #f38ba8;
+}
+
+/* ---- Control center ---- */
+
+.control-center {
+    background: #1e1e2e;
+    border: 2px solid #89b4fa;
+    border-radius: 10px;
+}
+
+/* ---- Widgets ---- */
+
+.widget-title > label {
+    color: #cdd6f4;
+}
+
+.widget-title > button {
+    background: #313244;
+    color: #cdd6f4;
+    border: 2px solid #45475a;
+    border-radius: 6px;
+}
+
+.widget-title > button:hover {
+    background: #f38ba8;
+    color: #1e1e2e;
+    border-color: #f38ba8;
+}
+
+/* ---- DND toggle ---- */
+
+.widget-dnd label {
+    color: #cdd6f4;
+}
+
+.widget-dnd switch {
+    background: #313244;
+    border: 2px solid #45475a;
+    border-radius: 10px;
+}
+
+.widget-dnd switch:checked {
+    background: #89b4fa;
+    border-color: #89b4fa;
+}
+
+.widget-dnd switch slider {
+    background: #cdd6f4;
+    border-radius: 10px;
+}
+
+/* ---- Floating notification popups ---- */
+
+.floating-notifications .notification {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}

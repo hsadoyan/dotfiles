@@ -358,6 +358,30 @@ else
     print_warning "wofi/style.css not found in $DOTFILES_DIR"
 fi
 
+# ---------- SWAYNC SETUP ----------
+echo
+print_info "========== SWAYNC (NOTIFICATIONS) =========="
+
+create_dir ~/.config/swaync
+
+if [ -f "$DOTFILES_DIR/swaync/config.json" ]; then
+    create_symlink "$DOTFILES_DIR/swaync/config.json" ~/.config/swaync/config.json
+    if [ "$DRY_RUN" = false ]; then
+        print_success "SwayNC config linked"
+    fi
+else
+    print_warning "swaync/config.json not found in $DOTFILES_DIR"
+fi
+
+if [ -f "$DOTFILES_DIR/swaync/style.css" ]; then
+    create_symlink "$DOTFILES_DIR/swaync/style.css" ~/.config/swaync/style.css
+    if [ "$DRY_RUN" = false ]; then
+        print_success "SwayNC style linked"
+    fi
+else
+    print_warning "swaync/style.css not found in $DOTFILES_DIR"
+fi
+
 # ---------- PARU INSTALLATION ----------
 echo
 print_info "========== PARU (AUR HELPER) =========="
