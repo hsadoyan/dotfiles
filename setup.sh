@@ -567,6 +567,22 @@ else
     fi
 fi
 
+# ---------- KEYBOARD CONFIGURATION ----------
+echo
+print_info "========== KEYBOARD CONFIGURATION =========="
+
+if [ "$DRY_RUN" = true ]; then
+    print_dry_run "Would set Caps Lock as Escape via localectl"
+    print_dry_run "Command: sudo localectl set-x11-keymap \"\" \"\" \"\" caps:escape"
+    current_xkb=$(localectl status 2>/dev/null | grep "X11 Options" || true)
+    if [ -n "$current_xkb" ]; then
+        echo -e "  ${CYAN}Current: $current_xkb${NC}"
+    fi
+else
+    sudo localectl set-x11-keymap "" "" "" caps:escape
+    print_success "Caps Lock mapped to Escape (system-wide via localectl)"
+fi
+
 # ---------- FINAL STEPS ----------
 echo
 print_info "========== FINAL CONFIGURATION =========="

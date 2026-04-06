@@ -147,6 +147,22 @@ require("lazy").setup({
   { "tpope/vim-fugitive" },
   { "tpope/vim-rhubarb" },
   {
+    "sindrets/diffview.nvim",
+    dependencies = { "nvim-tree/nvim-web-devicons" },
+    config = function()
+      require("diffview").setup({
+        use_icons = true,
+        enhanced_diff_hl = true,
+        view = {
+          merge_tool = {
+            layout = "diff3_mixed",
+          },
+        },
+      })
+    end,
+    cmd = { "DiffviewOpen", "DiffviewFileHistory", "DiffviewClose" },
+  },
+  {
     "lewis6991/gitsigns.nvim",
     config = function()
       require("gitsigns").setup({
@@ -665,10 +681,21 @@ keymap("n", "<leader>T", ":BTags<CR>", opts)
 -- nvim-tree
 keymap("n", "<C-n>", ":NvimTreeToggle<CR>", opts)
 
--- Git
+-- Git (fugitive)
+keymap("n", "<leader>gs", ":Git<CR>", opts)
+keymap("n", "<leader>gc", ":Git commit<CR>", opts)
+keymap("n", "<leader>gp", ":Git push<CR>", opts)
+keymap("n", "<leader>gl", ":Git log --oneline<CR>", opts)
+keymap("n", "<leader>gb", ":Git blame<CR>", opts)
 keymap("n", "<leader>dt", ":diffget //2<CR>", opts)
 keymap("n", "<leader>dm", ":diffget //3<CR>", opts)
 keymap("n", "<leader>du", ":diffupdate<CR>", opts)
+
+-- Diffview
+keymap("n", "<leader>dv", ":DiffviewOpen<CR>", opts)
+keymap("n", "<leader>dc", ":DiffviewClose<CR>", opts)
+keymap("n", "<leader>dh", ":DiffviewFileHistory %<CR>", opts)
+keymap("n", "<leader>dH", ":DiffviewFileHistory<CR>", opts)
 
 -- Gitsigns
 keymap("n", "]c", ":Gitsigns next_hunk<CR>", opts)
