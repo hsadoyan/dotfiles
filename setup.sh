@@ -583,26 +583,6 @@ else
     print_success "Caps Lock mapped to Escape (system-wide via localectl)"
 fi
 
-# ---------- FINAL STEPS ----------
-echo
-print_info "========== FINAL CONFIGURATION =========="
-
-if [ "$DRY_RUN" = true ]; then
-    print_dry_run "Would configure npm prefix to ~/.local"
-    if command_exists npm; then
-        echo -e "  ${GREEN}npm is available${NC}"
-    else
-        echo -e "  ${YELLOW}npm would need to be installed first${NC}"
-    fi
-else
-    if command_exists npm; then
-        npm config set prefix ~/.local
-        print_success "npm configured"
-    else
-        print_warning "npm not found, skipping npm configuration"
-    fi
-fi
-
 # ---------- SUMMARY ----------
 echo
 echo -e "${GREEN}========================================${NC}"

@@ -73,8 +73,6 @@ BASE_PACKAGES=(
     bottom
     yazi
     wl-clipboard
-    nodejs
-    npm
     python
     python-pip
     go

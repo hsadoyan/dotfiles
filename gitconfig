@@ -30,3 +30,7 @@
 
 [difftool]
   prompt = false
+
+# Machine-specific overrides (email, signing key, etc.)
+[include]
+  path = ~/.gitconfig.local
