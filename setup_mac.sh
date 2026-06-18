@@ -59,10 +59,32 @@ create_symlink() {
     fi
 }
 
+create_dir_symlink() {
+    local source="$1"
+    local target="$2"
+    if [ "$DRY_RUN" = true ]; then
+        if [ -d "$source" ]; then
+            print_dry_run "Would create symlink: $target -> $source"
+            if [ -e "$target" ] || [ -L "$target" ]; then
+                echo -e "  ${YELLOW}Note: $target already exists and would be overwritten${NC}"
+            fi
+        else
+            print_error "Source directory not found: $source"
+        fi
+    else
+        if [ -d "$source" ]; then
+            ln -sfn "$source" "$target"
+        else
+            print_error "Source directory not found: $source"
+            return 1
+        fi
+    fi
+}
+
 create_dir() {
     local dir="$1"
     if [ "$DRY_RUN" = true ]; then
-        [ ! -d "$dir" ] && print_dry_run "Would create directory: $dir"
+        [ -d "$dir" ] || print_dry_run "Would create directory: $dir"
     else
         mkdir -p "$dir"
     fi
@@ -96,14 +118,14 @@ create_dir ~/.config/nvim
 
 if [ -f "$DOTFILES_DIR/vimrc" ]; then
     create_symlink "$DOTFILES_DIR/vimrc" ~/.vimrc
-    [ "$DRY_RUN" = false ] && print_success "Vim configuration linked"
+    [ "$DRY_RUN" = true ] || print_success "Vim configuration linked"
 else
     print_error "vimrc not found in $DOTFILES_DIR"
 fi
 
 if [ -f "$DOTFILES_DIR/nvim/init.lua" ]; then
     create_symlink "$DOTFILES_DIR/nvim/init.lua" ~/.config/nvim/init.lua
-    [ "$DRY_RUN" = false ] && print_success "Neovim configuration linked"
+    [ "$DRY_RUN" = true ] || print_success "Neovim configuration linked"
 else
     print_error "nvim/init.lua not found in $DOTFILES_DIR"
 fi
@@ -135,14 +157,14 @@ create_dir ~/.config/git
 
 if [ -f "$DOTFILES_DIR/gitconfig" ]; then
     create_symlink "$DOTFILES_DIR/gitconfig" ~/.gitconfig
-    [ "$DRY_RUN" = false ] && print_success "Git config linked"
+    [ "$DRY_RUN" = true ] || print_success "Git config linked"
 else
     print_error "gitconfig not found in $DOTFILES_DIR"
 fi
 
 if [ -f "$DOTFILES_DIR/gitignore_global" ]; then
     create_symlink "$DOTFILES_DIR/gitignore_global" ~/.config/git/ignore
-    [ "$DRY_RUN" = false ] && print_success "Global gitignore linked"
+    [ "$DRY_RUN" = true ] || print_success "Global gitignore linked"
 else
     print_error "gitignore_global not found in $DOTFILES_DIR"
 fi
@@ -164,7 +186,7 @@ print_info "========== ZSH SETUP =========="
 
 if [ -f "$DOTFILES_DIR/zshrc" ]; then
     create_symlink "$DOTFILES_DIR/zshrc" ~/.zshrc
-    [ "$DRY_RUN" = false ] && print_success "Zsh configuration linked"
+    [ "$DRY_RUN" = true ] || print_success "Zsh configuration linked"
 else
     print_error "zshrc not found in $DOTFILES_DIR"
 fi
@@ -187,7 +209,7 @@ print_info "========== TMUX SETUP =========="
 
 if [ -f "$DOTFILES_DIR/tmux.conf" ]; then
     create_symlink "$DOTFILES_DIR/tmux.conf" ~/.tmux.conf
-    [ "$DRY_RUN" = false ] && print_success "Tmux configuration linked"
+    [ "$DRY_RUN" = true ] || print_success "Tmux configuration linked"
 else
     print_warning "tmux.conf not found in $DOTFILES_DIR"
 fi
@@ -200,7 +222,7 @@ create_dir ~/.config/kitty
 
 if [ -f "$DOTFILES_DIR/kitty.conf" ]; then
     create_symlink "$DOTFILES_DIR/kitty.conf" ~/.config/kitty/kitty.conf
-    [ "$DRY_RUN" = false ] && print_success "Kitty configuration linked"
+    [ "$DRY_RUN" = true ] || print_success "Kitty configuration linked"
 else
     print_warning "kitty.conf not found in $DOTFILES_DIR"
 fi
@@ -224,16 +246,35 @@ create_dir ~/.config/yazi
 
 if [ -f "$DOTFILES_DIR/yazi/yazi.toml" ]; then
     create_symlink "$DOTFILES_DIR/yazi/yazi.toml" ~/.config/yazi/yazi.toml
-    [ "$DRY_RUN" = false ] && print_success "Yazi config linked"
+    [ "$DRY_RUN" = true ] || print_success "Yazi config linked"
 else
     print_warning "yazi/yazi.toml not found in $DOTFILES_DIR"
 fi
 
 if [ -f "$DOTFILES_DIR/yazi/.yaziignore" ]; then
     create_symlink "$DOTFILES_DIR/yazi/.yaziignore" ~/.config/yazi/.yaziignore
-    [ "$DRY_RUN" = false ] && print_success "Yazi ignore file linked"
+    [ "$DRY_RUN" = true ] || print_success "Yazi ignore file linked"
 else
     print_warning "yazi/.yaziignore not found in $DOTFILES_DIR"
+fi
+
+# ---------- CLAUDE SKILLS ----------
+echo
+print_info "========== CLAUDE SKILLS =========="
+
+# Symlink each skill from the dotfiles into ~/.claude/skills so version-controlled
+# skills live alongside any machine-specific skills already present there.
+create_dir ~/.claude/skills
+
+if [ -d "$DOTFILES_DIR/skills" ]; then
+    for skill_dir in "$DOTFILES_DIR"/skills/*/; do
+        [ -d "$skill_dir" ] || continue
+        skill_name="$(basename "$skill_dir")"
+        create_dir_symlink "${skill_dir%/}" "$HOME/.claude/skills/$skill_name"
+        [ "$DRY_RUN" = true ] || print_success "Skill linked: $skill_name"
+    done
+else
+    print_warning "skills directory not found in $DOTFILES_DIR"
 fi
 
 # ---------- DOCKER / COLIMA ----------
@@ -272,6 +313,7 @@ echo "  • Zsh with Homebrew + Starship prompt"
 echo "  • Tmux configuration"
 echo "  • Kitty terminal (installed via Homebrew cask)"
 echo "  • Yazi file manager"
+echo "  • Claude skills (symlinked into ~/.claude/skills)"
 echo "  • Docker via Colima"
 echo "  • Nerd Fonts: Hack, DejaVu"
 echo "  • Modern CLI tools: fzf, ripgrep, fd, bat, eza, bottom, tldr"

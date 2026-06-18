@@ -95,6 +95,30 @@ create_symlink() {
     fi
 }
 
+# Function to create a symlink to a directory
+create_dir_symlink() {
+    local source="$1"
+    local target="$2"
+
+    if [ "$DRY_RUN" = true ]; then
+        if [ -d "$source" ]; then
+            print_dry_run "Would create symlink: $target -> $source"
+            if [ -e "$target" ] || [ -L "$target" ]; then
+                echo -e "  ${YELLOW}Note: $target already exists and would be overwritten${NC}"
+            fi
+        else
+            print_error "Source directory not found: $source"
+        fi
+    else
+        if [ -d "$source" ]; then
+            ln -sfn "$source" "$target"
+        else
+            print_error "Source directory not found: $source"
+            return 1
+        fi
+    fi
+}
+
 # Function to create directory
 create_dir() {
     local dir="$1"
@@ -382,6 +406,27 @@ else
     print_warning "swaync/style.css not found in $DOTFILES_DIR"
 fi
 
+# ---------- CLAUDE SKILLS SETUP ----------
+echo
+print_info "========== CLAUDE SKILLS =========="
+
+# Symlink each skill from the dotfiles into ~/.claude/skills so version-controlled
+# skills live alongside any machine-specific skills already present there.
+create_dir ~/.claude/skills
+
+if [ -d "$DOTFILES_DIR/skills" ]; then
+    for skill_dir in "$DOTFILES_DIR"/skills/*/; do
+        [ -d "$skill_dir" ] || continue
+        skill_name="$(basename "$skill_dir")"
+        create_dir_symlink "${skill_dir%/}" "$HOME/.claude/skills/$skill_name"
+        if [ "$DRY_RUN" = false ]; then
+            print_success "Skill linked: $skill_name"
+        fi
+    done
+else
+    print_warning "skills directory not found in $DOTFILES_DIR"
+fi
+
 # ---------- PARU INSTALLATION ----------
 echo
 print_info "========== PARU (AUR HELPER) =========="
@@ -601,6 +646,7 @@ echo "  • Zsh as default shell"
 echo "  • Tmux configuration"
 echo "  • Kitty terminal"
 echo "  • Yazi file manager"
+echo "  • Claude skills (symlinked into ~/.claude/skills)"
 echo "  • Paru (AUR helper)"
 echo "  • Powerline"
 echo "  • Nerd Fonts (DejaVu, Hack)"
