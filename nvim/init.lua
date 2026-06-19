@@ -611,6 +611,53 @@ autocmd("QuickFixCmdPost", {
   command = "cwindow",
 })
 
+-- ==========================================================================
+-- PROSE / SPELL CHECK (markdown, text, git commits)
+-- ==========================================================================
+-- Resolve the real config dir (init.lua is symlinked from dotfiles), so the
+-- personal dictionary lives in dotfiles and syncs across machines. `zg` (add
+-- good word) / `zw` (mark wrong) write here by default; `z=` suggests fixes;
+-- `]s` / `[s` jump between misspellings.
+local nvim_dir = vim.fn.fnamemodify(vim.fn.resolve(vim.fn.stdpath("config") .. "/init.lua"), ":h")
+local global_spellfile = nvim_dir .. "/spell/en.utf-8.add"
+
+-- A project that ships `.nvim/spell/project.utf-8.add` (e.g. world/jargon
+-- dictionaries) gets that file checked first, so `zg` saves new jargon into the
+-- repo instead of the personal dict. `2zg` forces a word into the global dict.
+-- Neovim regenerates a spellfile's binary `.spl` on `zg`/`zw`, but won't build
+-- one from scratch on load. So compile any hand-seeded/edited `.add` whose
+-- `.spl` is missing or stale (cheap; a no-op once built).
+local function ensure_spl(addfile)
+  if vim.fn.filereadable(addfile) ~= 1 then return end
+  local spl = addfile .. ".spl"
+  if vim.fn.filereadable(spl) ~= 1 or vim.fn.getftime(spl) < vim.fn.getftime(addfile) then
+    vim.cmd("silent! mkspell! " .. vim.fn.fnameescape(spl) .. " " .. vim.fn.fnameescape(addfile))
+  end
+end
+
+local function prose_spellfiles()
+  vim.fn.mkdir(vim.fn.fnamemodify(global_spellfile, ":h"), "p")
+  local files = {}
+  local root = vim.fs.root(0, ".git")
+  if root and vim.fn.isdirectory(root .. "/.nvim/spell") == 1 then
+    table.insert(files, root .. "/.nvim/spell/project.utf-8.add")
+  end
+  table.insert(files, global_spellfile)
+  for _, f in ipairs(files) do ensure_spl(f) end
+  return files
+end
+
+augroup("prose_spell", { clear = true })
+autocmd("FileType", {
+  group = "prose_spell",
+  pattern = { "markdown", "text", "gitcommit", "tex", "rst" },
+  callback = function()
+    vim.opt_local.spell = true
+    vim.opt_local.spelllang = "en_us"
+    vim.opt_local.spellfile = prose_spellfiles()
+  end,
+})
+
 -- Filetype settings
 augroup("filetypes", { clear = true })
 autocmd("FileType", {
