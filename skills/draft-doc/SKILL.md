@@ -12,6 +12,13 @@ artifact's job is what the diff can't show: what behavior changed, and why.
 
 Governs the artifact only — not chat, not code comments.
 
+**Two phases — don't cut too early.** A short artifact (commit, PR, ticket) is a single
+distill act: apply the contract directly. A long one (design doc, RFC) is drafted
+collaboratively over a session, then finalized. While drafting, the trace, analogies,
+alternatives, and hedges are working material — keep them visible; you and the user are still
+reasoning from them. The cuts below are the *finalize* pass, run once the thinking has settled.
+Distilling a section the user is still working through destroys the material they're using.
+
 Brevity is the soul of wit.
 
 Every line spends the reader's attention. It earns its place only if it tells the reader
@@ -110,6 +117,12 @@ and its reason are what the reviewer needs.
 **Bloat → brief:**
 > ✗ There are a number of factors to consider when thinking about how best to scale the ingestion pipeline…
 > ✓ Scaling the ingestion pipeline needs three changes: batching, backpressure, and a read replica.
+
+**Load-bearing, not scaffolding (keep it):**
+> A hedge or assumption can look like a by-the-way and get cut. "Holds under ~10k namespaces per
+> cell; above that the in-memory index needs rethinking" is not an aside — it's the assumption
+> the design rests on and the risk the reader inherits. Keep it, stated as an explicit
+> assumption. The cut bias is right by default; over-cutting strips exactly these.
 
 ## Process
 
