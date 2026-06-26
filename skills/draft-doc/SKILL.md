@@ -65,7 +65,7 @@ Most of drafting is finding the lines that don't earn their place, and cutting t
 ## Prose docs & tickets
 
 Skeletons (front-loading per type):
-- **Ticket:** problem → change → scope / acceptance criteria.
+- **Ticket:** problem → change → scope / acceptance criteria. Prose <200 words — excludes acceptance criteria, repro steps, logs, and code.
 - **Design doc / RFC:** decision or summary → context → non-goals → alternatives & tradeoffs → details.
 - **Runbook:** numbered steps in execution order; symptom → action.
 - **1-pager:** the ask first, then only its support. <600 words.
